@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Smart Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <a href="../Index.html" class="nav-icon home" data-name="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="Dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
+            <i class="fas fa-chart-line"></i>
+        </a>
+        <a href="Rooms.html" class="nav-icon rooms" data-name="Rooms">
+            <i class="fas fa-door-open"></i>
+        </a>
+        <a href="Settings.html" class="nav-icon settings" data-name="Settings">
+            <i class="fas fa-cog"></i>
+        </a>
+        <a href="Help.html" class="nav-icon help" data-name="Help">
+            <i class="fas fa-question-circle"></i>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <div class="full-width-panel">
+            <div class="panel-title">
+                <i class="fas fa-cog"></i>
+                <span>System Settings</span>
+            </div>
+            
+            <div class="settings-grid">
+                <!-- General Settings Card -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
+                        <div class="settings-title">General Settings</div>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">System Name</div>
+                                <div class="settings-description">Name displayed on your devices</div>
+                            </div>
+                            <div class="settings-value">Smart Home System</div>
+                            <button class="settings-action">Edit</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Temperature Unit</div>
+                                <div class="settings-description">Display temperature in Fahrenheit or Celsius</div>
+                            </div>
+                            <div class="settings-value">Fahrenheit (°F)</div>
+                            <button class="settings-action">Change</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Time Zone</div>
+                                <div class="settings-description">Your current time zone</div>
+                            </div>
+                            <div class="settings-value">Eastern Time (ET)</div>
+                            <button class="settings-action">Change</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings Card -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="settings-title">Security Settings</div>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Two-Factor Authentication</div>
+                                <div class="settings-description">Add an extra layer of security to your account</div>
+                            </div>
+                            <div class="settings-value">Enabled</div>
+                            <button class="settings-action">Manage</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Auto-Lock</div>
+                                <div class="settings-description">Automatically lock doors when no one is home</div>
+                            </div>
+                            <div class="settings-value">Enabled</div>
+                            <button class="settings-action">Configure</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Security Notifications</div>
+                                <div class="settings-description">Receive alerts for security events</div>
+                            </div>
+                            <div class="settings-value">All Events</div>
+                            <button class="settings-action">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Settings Card -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="settings-title">Notification Settings</div>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Push Notifications</div>
+                                <div class="settings-description">Receive notifications on your mobile device</div>
+                            </div>
+                            <div class="settings-value">Enabled</div>
+                            <button class="settings-action">Customize</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Email Notifications</div>
+                                <div class="settings-description">Receive notifications via email</div>
+                            </div>
+                            <div class="settings-value">Daily Digest</div>
+                            <button class="settings-action">Configure</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Sound Alerts</div>
+                                <div class="settings-description">Play sounds for important notifications</div>
+                            </div>
+                            <div class="settings-value">Enabled</div>
+                            <button class="settings-action">Change</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Energy Saving Settings Card -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="settings-title">Energy Saving</div>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Auto Power Saving</div>
+                                <div class="settings-description">Automatically optimize energy usage</div>
+                            </div>
+                            <div class="settings-value">Enabled</div>
+                            <button class="settings-action">Configure</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Schedule</div>
+                                <div class="settings-description">Set schedules for devices to save energy</div>
+                            </div>
+                            <div class="settings-value">3 Schedules Active</div>
+                            <button class="settings-action">Manage</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Energy Reports</div>
+                                <div class="settings-description">Receive weekly energy consumption reports</div>
+                            </div>
+                            <div class="settings-value">Enabled</div>
+                            <button class="settings-action">Customize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Account Settings Card -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="settings-title">Account Settings</div>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Profile Information</div>
+                                <div class="settings-description">Update your personal information</div>
+                            </div>
+                            <div class="settings-value">John Doe</div>
+                            <button class="settings-action">Edit</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Change Password</div>
+                                <div class="settings-description">Update your password regularly</div>
+                            </div>
+                            <div class="settings-value">Last changed 30 days ago</div>
+                            <button class="settings-action">Change</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Connected Devices</div>
+                                <div class="settings-description">Manage devices linked to your account</div>
+                            </div>
+                            <div class="settings-value">5 Devices</div>
+                            <button class="settings-action">Manage</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Info Card -->
+                <div class="settings-card">
+                    <div class="settings-header">
+                        <div class="settings-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="settings-title">System Information</div>
+                    </div>
+                    <div class="settings-content">
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Software Version</div>
+                                <div class="settings-description">Current version of your smart home system</div>
+                            </div>
+                            <div class="settings-value">v2.4.1</div>
+                            <button class="settings-action">Check Updates</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">System Status</div>
+                                <div class="settings-description">Overall health of your smart home system</div>
+                            </div>
+                            <div class="settings-value">All Systems Operational</div>
+                            <button class="settings-action">View Details</button>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Last Backup</div>
+                                <div class="settings-description">Date of your last system backup</div>
+                            </div>
+                            <div class="settings-value">July 15, 2023</div>
+                            <button class="settings-action">Backup Now</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <div class="next-demo-container">
+        <style>
+            .next-demo-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 24px;
+                background-color: #ffffff;
+                color: #3b82f6;
+                border: 2px solid #3b82f6;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .next-demo-btn:hover {
+                background-color: #3b82f6;
+                color: #ffffff;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <button id="nextDemoBtn" class="next-demo-btn">
+            Next Demo
+        </button>
+        <script>
+            document.getElementById('nextDemoBtn').addEventListener('click', function () {
+                window.location.href = '../index.html';
+            });
+        </script>
+    </div>
+
+  <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="nav-section">
+            <button class="nav-toggle" id="systemToggle">
+                <div class="slider"></div>
+            </button>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-view="overview">Overview</button>
+                <button class="nav-tab" data-view="rooms">Rooms</button>
+                <button class="nav-tab" data-view="energy">Energy</button>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="dropdown">
+                <button class="dropdown-btn" id="settingsDropdown">
+                    ⚙️ Settings <span>▼</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="dashboard.showSettings()">System Settings</div>
+                    <div class="dropdown-item" onclick="dashboard.showHistory()">Activity History</div>
+                    <div class="dropdown-item" onclick="dashboard.showDevices()">Device Management</div>
+                    <div class="dropdown-item" onclick="dashboard.showSecurity()">Security</div>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropdown-btn" id="actionsDropdown">
+                    ⚡ Actions <span>▼</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="dashboard.quickAction('allLightsOn')">All Lights On</div>
+                    <div class="dropdown-item" onclick="dashboard.quickAction('allLightsOff')">All Lights Off</div>
+                    <div class="dropdown-item" onclick="dashboard.quickAction('nightMode')">Night Mode</div>
+                    <div class="dropdown-item" onclick="dashboard.quickAction('awayMode')">Away Mode</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Status Indicator -->
+    <div class="status-indicator">
+        <div class="online-dot"></div>
+        <span>All systems online - 16 devices</span>
+    </div>
+
+    <!-- Zoom Controls -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomIn">+</button>
+        <div class="zoom-info" id="zoomInfo" style="transform: translateX(-13%);">100%</div>
+        <button class="zoom-btn" id="zoomOut">−</button>
+        <button class="zoom-btn" id="resetZoom">⌂</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-area">
+        <div class="scale-wrapper">
+            <div class="floor-plan-container zoom-1" id="floorPlanContainer">
+                <div class="floor-plan-wrapper" id="floorPlanWrapper">
+                    <img src="https://ik.imagekit.io/jqubn4ob4/one-bedroom.5b29dba7.jpg?updatedAt=1758692316515"
+                        alt="Smart Home Floor Plan" class="floor-plan" id="floorPlan">
+
+                    <!-- Room Control Buttons -->
+                    <div class="room-button" style="top: 30%; left: 72%;" data-room="master-bedroom">
+                        <span>Bedroom</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="bedroom-status"></div>
+                            <span>22°C</span>
+                        </div>
+                        <div class="light-indicator" id="bedroom-light" style="display: none;">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 70%; left: 36%;" data-room="living-room">
+                        <span>Living Room</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="living-status"></div>
+                            <span>24°C</span>
+                        </div>
+                        <div class="light-indicator" id="living-light">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 25%; left: 32%;" data-room="kitchen">
+                        <span>Kitchen</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="kitchen-status"></div>
+                        </div>
+                        <div class="light-indicator" id="kitchen-light">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 22.5%; left: 52%;" data-room="bathroom">
+                        <span>Bathroom</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="bathroom-status"></div>
+                        </div>
+                        <div class="light-indicator" id="bathroom-light" style="display: none;">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 77%; left: 13%;" data-room="garage">
+                        <span>Garage</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="garage-status"></div>
+                        </div>
+                        <div class="light-indicator" id="garage-light" style="display: none;">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 48.6%; left: 15%;" data-room="balcony">
+                        <span>Balcony</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="balcony-status"></div>
+                        </div>
+                        <div class="light-indicator" id="balcony-light" style="display: none;">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 49.7%; left: 35%;" data-room="dining">
+                        <span>Dining</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="dining-status"></div>
+                            <span>23°C</span>
+                        </div>
+                        <div class="light-indicator" id="dining-light">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 67.9%; left: 75.6%;" data-room="laundry">
+                        <span>Laundry</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="laundry-status"></div>
+                            <span>24°C</span>
+                        </div>
+                        <div class="light-indicator" id="laundry-light" style="display: none;">💡</div>
+                    </div>
+
+                    <div class="room-button" style="top: 49.7%; left: 51.5%;" data-room="study">
+                        <span>Study</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="study-status"></div>
+                            <span>21°C</span>
+                        </div>
+                        <div class="light-indicator" id="study-light">💡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Panel -->
+    <div class="side-panel" id="sidePanel">
+        <div class="panel-header">
+            <div class="panel-title" id="panelTitle">Room Controls</div>
+            <button class="close-btn" id="closePanelBtn">×</button>
+        </div>
+        <div class="panel-content" id="panelContent">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help - Smart Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <a href="../Index.html" class="nav-icon home" data-name="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="Dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
+            <i class="fas fa-chart-line"></i>
+        </a>
+        <a href="Rooms.html" class="nav-icon rooms" data-name="Rooms">
+            <i class="fas fa-door-open"></i>
+        </a>
+        <a href="Settings.html" class="nav-icon settings" data-name="Settings">
+            <i class="fas fa-cog"></i>
+        </a>
+        <a href="Help.html" class="nav-icon help" data-name="Help">
+            <i class="fas fa-question-circle"></i>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <div class="full-width-panel">
+            <div class="panel-title">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Support</span>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-form-container">
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="technical">Technical Support</option>
+                                <option value="billing">Billing Inquiry</option>
+                                <option value="feature">Feature Request</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Describe your issue or question in detail"></textarea>
+                        </div>
+                        <button type="submit" class="form-submit">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Response Time</h3>
+                        <p>We typically respond to all inquiries within 24 hours during business days.</p>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3>What to Include</h3>
+                        <p>Please include your device model and software version for technical issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        // Contact form handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Simulate form submission
+            const submitBtn = this.querySelector('.form-submit');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Thank you for your message! We will get back to you within 24 hours.');
+                this.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        });
+    </script>
+</body>
+
+</html>

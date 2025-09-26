@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="dark-theme">
+
+    <div class="dashboard">
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        <button class="hamburger-btn" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <div class="logo-icon">L</div>
+                <span>Lumi - SmartHome</span>
+            </div>
+            <nav class="nav-menu">
+                <div class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-home"></i>
+                    Dashboard
+                </div>
+                <div class="nav-item" data-page="recent">
+                    <i class="fas fa-history"></i>
+                    Recent
+                </div>
+                <div class="nav-item" data-page="support">
+                    <i class="fas fa-question-circle"></i>
+                    Support
+                </div>
+                <div class="nav-item" data-page="setting">
+                    <i class="fas fa-cog"></i>
+                    Setting
+                </div>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="top-bar">
+                <h1>Dashboard</h1>
+            </header>
+
+            <div class="page-content active" id="dashboardPage">
+                <div class="room-tabs">
+                    <button class="room-tab active" data-room="living">Living Room</button>
+                    <button class="room-tab" data-room="kitchen">Kitchen</button>
+                    <button class="room-tab" data-room="bed">Bed Room</button>
+                    <button class="room-tab" data-room="movie">Movie Room</button>
+                    <button class="room-tab" data-room="game">Game Room</button>
+                </div>
+
+                <div class="dashboard-content">
+                    <div class="left-column">
+                        <div class="ac-card card">
+                            <div class="ac-header">
+                                <h3>Air Conditioner</h3>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="acToggle" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="ac-temperature">
+                                <span class="temp-value" id="tempValue">24°C</span>
+                                <span class="temp-label">Temperature</span>
+                            </div>
+                            <div class="temperature-slider">
+                                <input type="range" id="tempSlider" min="16" max="32" value="24" class="temp-range">
+                                <div class="temp-marks">
+                                    <span>16°C</span>
+                                    <span>32°C</span>
+                                </div>
+                            </div>
+                            <div class="ac-modes">
+                                <button class="mode-btn active" data-mode="cool">
+                                    <i class="fas fa-snowflake"></i>
+                                    <span>Cool</span>
+                                </button>
+                                <button class="mode-btn" data-mode="fan">
+                                    <i class="fas fa-fan"></i>
+                                    <span>Fan</span>
+                                </button>
+                                <button class="mode-btn" data-mode="heat">
+                                    <i class="fas fa-fire"></i>
+                                    <span>Heat</span>
+                                </button>
+                                <button class="mode-btn" data-mode="auto">
+                                    <i class="fas fa-sync"></i>
+                                    <span>Auto</span>
+                                </button>
+                                <button class="mode-btn" data-mode="night">
+                                    <i class="fas fa-moon"></i>
+                                    <span>Night</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="devices-section">
+                            <h3>My Devices</h3>
+                            <div class="devices-grid" id="devicesGrid">
+                                <!-- Devices will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right-column">
+                        <div class="usage-card card">
+                            <div class="usage-header">
+                                <h3>Usage Status</h3>
+                                <div class="usage-controls">
+                                    <select class="time-select">
+                                        <option>Today</option>
+                                        <option>This Week</option>
+                                        <option>This Month</option>
+                                        <option>This Year</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="usage-stats">
+                                <div class="stat">
+                                    <span class="stat-label">Energy Usage</span>
+                                    <span class="stat-value">45.6 kWh</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Water Usage</span>
+                                    <span class="stat-value">120 L</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-label">Cost</span>
+                                    <span class="stat-value">₹ 3200</span>
+                                </div>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="usageChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="light-section">
+                            <h3>Lights</h3>
+                            <div class="lights-container" id="lightsContainer">
+                                <!-- Lights will be dynamically added here -->
+                            </div>
+                            <div class="todo-section">
+                                <div class="todo-header">
+                                    <h4>To-Do List</h4>
+                                    <button class="add-todo-btn" id="addTodoBtn">+</button>
+                                </div>
+                                <div class="todo-list" id="todoList">
+                                    <!-- To-do items will be dynamically added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-content" id="recentPage">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-plug"></i>
+                        </div>
+                        <div class="stat-card-value">24</div>
+                        <div class="stat-card-label">Active Devices</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="stat-card-value">45.6 kWh</div>
+                        <div class="stat-card-label">Energy Used Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="stat-card-value">120 L</div>
+                        <div class="stat-card-label">Water Used Today</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-card-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="stat-card-value">₹ 4300</div>
+                        <div class="stat-card-label">Today's Cost</div>
+                    </div>
+                </div>
+                <div class="device-status-widget">
+                    <h3>Device Status</h3>
+                    <div class="device-status-list">
+                        <div class="device-status-item">
+                            <div class="device-status-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div class="device-status-info">
+                                <h5>Living Room Light</h5>
+                                <p>On for 3 hours</p>
+                            </div>
+                            <div class="device-status-indicator online"></div>
+                        </div>
+                        <div class="device-status-item">
+                            <div class="device-status-icon">
+                                <i class="fas fa-thermometer-half"></i>
+                            </div>
+                            <div class="device-status-info">
+                                <h5>AC Unit</h5>
+                                <p>Set to 24°C</p>
+                            </div>
+                            <div class="device-status-indicator online"></div>
+                        </div>
+                        <div class="device-status-item">
+                            <div class="device-status-icon">
+                                <i class="fas fa-tv"></i>
+                            </div>
+                            <div class="device-status-info">
+                                <h5>Smart TV</h5>
+                                <p>Offline for 2 days</p>
+                            </div>
+                            <div class="device-status-indicator offline"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="activity-feed">
+                    <h3>Recent Activities</h3>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>Living Room Light turned on</h4>
+                            <p>You turned on the light at 7:30 PM</p>
+                        </div>
+                        <div class="activity-time">2 hours ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>AC temperature changed</h4>
+                            <p>Temperature set to 22°C</p>
+                        </div>
+                        <div class="activity-time">4 hours ago</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="activity-details">
+                            <h4>Front door locked</h4>
+                            <p>Door locked automatically</p>
+                        </div>
+                        <div class="activity-time">6 hours ago</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-content" id="supportPage">
+                <div class="weather-widget">
+                    <div class="weather-header">
+                        <div>
+                            <div class="weather-temp">22°C</div>
+                            <div>Sunny</div>
+                        </div>
+                        <i class="fas fa-sun fa-2x"></i>
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <div class="weather-detail-value">45%</div>
+                            <div class="weather-detail-label">Humidity</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="weather-detail-value">10 km/h</div>
+                            <div class="weather-detail-label">Wind</div>
+                        </div>
+                        <div class="weather-detail">
+                            <div class="weather-detail-value">1013 hPa</div>
+                            <div class="weather-detail-label">Pressure</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="support-content">
+                    <div class="support-item">
+                        <h4>How to connect a new device? <i class="fas fa-chevron-down"></i></h4>
+                        <p>To connect a new device, go to the Devices section, click on "Add Device", and follow the
+                            on-screen instructions. Make sure your device is in pairing mode.</p>
+                    </div>
+                    <div class="support-item">
+                        <h4>Why is my device offline? <i class="fas fa-chevron-down"></i></h4>
+                        <p>If your device is offline, check if it's powered on and connected to the same Wi-Fi network
+                            as your hub. You may need to restart the device.</p>
+                    </div>
+                    <div class="support-item">
+                        <h4>How to create automation? <i class="fas fa-chevron-down"></i></h4>
+                        <p>Go to the Automations tab, click "Create Automation", select the trigger and action, then
+                            save your automation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-content" id="settingPage">
+
+                <div class="settings-content">
+                    <div class="setting-item">
+                        <h4>Temperature Unit</h4>
+                        <div class="setting-options">
+                            <button class="setting-option active">Celsius (°C)</button>
+                            <button class="setting-option">Fahrenheit (°F)</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <h4>Notifications</h4>
+                        <div class="setting-options">
+                            <button class="setting-option active">Enabled</button>
+                            <button class="setting-option">Disabled</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <h4>Energy Saving Mode</h4>
+                        <div class="setting-options">
+                            <button class="setting-option">Enabled</button>
+                            <button class="setting-option active">Disabled</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <h4>Security Mode</h4>
+                        <div class="setting-options">
+                            <button class="setting-option active">Disarmed</button>
+                            <button class="setting-option">Arm Stay</button>
+                            <button class="setting-option">Arm Away</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <h4>Wi-Fi Control</h4>
+                        <div class="setting-options">
+                            <button class="setting-option active">Enabled</button>
+                            <button class="setting-option">Disabled</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <h4>Night Mode</h4>
+                        <div class="setting-options">
+                            <button class="setting-option">Enabled</button>
+                            <button class="setting-option active">Disabled</button>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <h4>Auto Updates</h4>
+                        <div class="setting-options">
+                            <button class="setting-option active">Enabled</button>
+                            <button class="setting-option">Disabled</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <div class="next-demo-container">
+        <style>
+            .next-demo-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 24px;
+                background-color: #ffffff;
+                color: #3b82f6;
+                border: 2px solid #3b82f6;
+                border-radius: 8px;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .next-demo-btn:hover {
+                background-color: #3b82f6;
+                color: #ffffff;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <button id="nextDemoBtn" class="next-demo-btn">
+            Next Demo
+        </button>
+        <script>
+            document.getElementById('nextDemoBtn').addEventListener('click', function () {
+                // Replace 'next-demo-page.html' with the actual file name of your next demo
+                // and uncomment the line below to enable the navigation.
+                window.location.href = '../Dashboard 4/index.html';
+            });
+        </script>
+    </div>
+    <script src="script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Temperature Control</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Mobile Menu Button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div class="dashboard-container">
+        <!-- AC Control Sidebar -->
+        <div class="ac-sidebar" id="acSidebar">
+            <div class="time-display">
+                <div class="time" id="currentTime">12:30</div>
+                <div class="date" id="currentDate">Monday, Jan 15</div>
+            </div>
+
+            <!-- Circular Temperature Control Widget -->
+            <div class="temperature-widget">
+                <div class="widget-header">
+                    <div class="widget-title">Air Conditioner</div>
+                </div>
+
+                <div class="circular-slider-container">
+                    <div class="circular-slider" id="slider">
+                        <svg>
+                            <defs>
+                                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" stop-color="#3b82f6" />
+                                    <stop offset="100%" stop-color="#60a5fa" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="circle-bg" cx="110" cy="110" r="100"></circle>
+                            <circle class="circle-fill" cx="110" cy="110" r="100" stroke-dasharray="628"
+                                stroke-dashoffset="628"></circle>
+                        </svg>
+                        <div class="handle" id="handle"></div>
+                        <div class="value-display">
+                            <div class="temperature" id="valueText">22°C</div>
+                            <div class="status" id="status">Comfortable</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="control-btn" id="btnCool"><i class="fas fa-snowflake"></i></button>
+                    <button class="control-btn" id="btnComfort"><i class="fas fa-thermometer-half"></i></button>
+                    <button class="control-btn" id="btnWarm"><i class="fas fa-sun"></i></button>
+                </div>
+
+                <div class="power-toggle">
+                    <span class="toggle-label">Power</span>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="circularPower" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="fan-speed">
+                <label>Fan Speed</label>
+                <div class="fan-controls">
+                    <button class="fan-btn" data-speed="1">1</button>
+                    <button class="fan-btn active" data-speed="2">2</button>
+                    <button class="fan-btn" data-speed="3">3</button>
+                    <button class="fan-btn" data-speed="4">4</button>
+                </div>
+                <div class="fan-icon-container">
+                    <i class="fas fa-fan fan-icon" id="fanIcon"></i>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Main Dashboard -->
+        <div class="main-dashboard">
+            <!-- Top Navigation -->
+            <header class="top-nav">
+                <div class="logo"></div>
+                <nav class="nav-tabs">
+                    <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+                    <button class="nav-tab" data-tab="devices">Devices</button>
+                    <button class="nav-tab" data-tab="statistics">Statistics</button>
+                    <button class="nav-tab" data-tab="settings">Settings</button>
+                </nav>
+            </header>
+
+            <div id="dashboardPage" class="page-content active">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-item">
+                        <span class="status-icon">🌬️</span>
+                        <span>Air Quality: Good</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-icon">💧</span>
+                        <span>Water Quality: Excellent</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-icon">🔒</span>
+                        <span>Security: Armed</span>
+                    </div>
+                </div>
+
+                <!-- Room Tabs -->
+                <div class="room-tabs">
+                    <button class="room-tab" data-room="livingroom">Living Room</button>
+                    <button class="room-tab active" data-room="office">Office</button>
+                    <button class="room-tab" data-room="kitchen">Kitchen</button>
+                    <button class="room-tab" data-room="bedroom">Bedroom</button>
+                </div>
+
+                <!-- Dashboard Content -->
+                <div class="dashboard-content">
+                    <!-- Device Controls -->
+                    <div class="device-controls">
+                        <h3>Devices</h3>
+                        <div class="device-list">
+                            <div class="device-item">
+                                <span>Chandelier</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="device-toggle" data-device="chandelier">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="device-item">
+                                <span>Table lamp</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="device-toggle" data-device="table-lamp" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="device-item">
+                                <span>Floor lamp</span>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" class="device-toggle" data-device="floor-lamp">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="humidity-display">
+                            <div class="humidity-circle">
+                                <svg class="humidity-svg" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" stroke-width="8" />
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" stroke-width="8"
+                                        stroke-dasharray="283" stroke-dashoffset="56.6" class="humidity-progress" />
+                                </svg>
+                                <div class="humidity-text">
+                                    <span class="humidity-value" id="humidityValue">80</span>
+                                    <span class="humidity-unit">%</span>
+                                </div>
+                            </div>
+                            <label>Humidity</label>
+                        </div>
+
+                        <div class="scene-selection">
+                            <label>Scene</label>
+                            <select id="sceneSelect">
+                                <option value="none">None</option>
+                                <option value="working">Working</option>
+                                <option value="reading">Reading</option>
+                                <option value="relaxing">Relaxing</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Light Controls -->
+                    <div class="light-controls">
+                        <h3>Lights</h3>
+                        <div class="color-picker">
+                            <div class="color-options">
+                                <button class="color-btn" data-color="#ff69b4" style="background: #ff69b4;"></button>
+                                <button class="color-btn" data-color="#ff8c00" style="background: #ff8c00;"></button>
+                                <button class="color-btn active" data-color="#ffd700"
+                                    style="background: #ffd700;"></button>
+                                <button class="color-btn" data-color="#9370db" style="background: #9370db;"></button>
+                                <button class="color-btn" data-color="#4169e1" style="background: #4169e1;"></button>
+                                <button class="color-btn" data-color="#32cd32" style="background: #32cd32;"></button>
+                            </div>
+                        </div>
+
+                        <div class="brightness-control">
+                            <label>Brightness</label>
+                            <div class="brightness-slider-container">
+                                <span class="brightness-icon">🌙</span>
+                                <input type="range" class="brightness-slider" id="brightnessSlider" min="10" max="100"
+                                    value="75">
+                                <span class="brightness-icon">☀️</span>
+                            </div>
+                            <div class="brightness-value" id="brightnessValue">75%</div>
+                        </div>
+
+                        <div class="smart-devices">
+                            <h4>Smart Devices</h4>
+                            <div class="devices-grid">
+                                <div class="smart-device">
+                                    <div class="device-icon">🔊</div>
+                                    <div class="device-info">
+                                        <div class="device-name">Apple HomePod</div>
+                                        <div class="device-type">Audio</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="smart-device-toggle" data-device="homepod"
+                                            checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="smart-device">
+                                    <div class="device-icon">🌡️</div>
+                                    <div class="device-info">
+                                        <div class="device-name">Wyze Bulb</div>
+                                        <div class="device-type">Climate</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="smart-device-toggle" data-device="wyze">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="smart-device">
+                                    <div class="device-icon">💨</div>
+                                    <div class="device-info">
+                                        <div class="device-name">Dyson Purifier</div>
+                                        <div class="device-type">Air</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="smart-device-toggle" data-device="dyson" checked>
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div class="smart-device">
+                                    <div class="device-icon">🌱</div>
+                                    <div class="device-info">
+                                        <div class="device-name">Eco Planter</div>
+                                        <div class="device-type">Plant</div>
+                                    </div>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" class="smart-device-toggle" data-device="planter">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Widgets Sidebar -->
+                    <div class="widgets-sidebar">
+                        <!-- Wi-Fi Widget -->
+                        <div class="widget wifi-widget">
+                            <h4>Wi-Fi Connection</h4>
+                            <div class="wifi-status">
+                                <div class="wifi-icon">📶</div>
+                                <div class="wifi-info">
+                                    <div class="wifi-name" id="wifiName">Smart Home</div>
+                                    <div class="wifi-status-text">Connected</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Todo Widget -->
+                        <div class="widget todo-widget">
+                            <h4>To-Do List</h4>
+                            <div class="todo-list" id="todoList">
+                                <div class="todo-item">
+                                    <input type="checkbox" id="todo1">
+                                    <label for="todo1">Check security cameras</label>
+                                </div>
+                                <div class="todo-item">
+                                    <input type="checkbox" id="todo2" checked>
+                                    <label for="todo2">Water the plants</label>
+                                </div>
+                                <div class="todo-item">
+                                    <input type="checkbox" id="todo3">
+                                    <label for="todo3">Schedule maintenance</label>
+                                </div>
+                            </div>
+                            <div class="add-todo">
+                                <input type="text" id="newTodoInput" placeholder="Add new task...">
+                                <button id="addTodoBtn">+</button>
+                            </div>
+                        </div>
+
+                        <!-- Music Widget -->
+                        <div class="widget music-widget">
+                            <div class="album-art">
+                                <div class="album-gradient"></div>
+                            </div>
+                            <div class="music-info">
+                                <div class="song-title" id="songTitle">1999 She</div>
+                                <div class="artist-name" id="artistName">Deaton Chris Anthony</div>
+                            </div>
+                            <div class="music-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progressFill"></div>
+                                </div>
+                                <div class="time-info">
+                                    <span id="currentMusicTime">2:15</span>
+                                    <span id="totalMusicTime">3:45</span>
+                                </div>
+                            </div>
+                            <div class="music-controls">
+                                <button class="music-btn" id="prevBtn">
+                                    <i class="fas fa-step-backward"></i>
+                                </button>
+                                <button class="music-btn play-pause" id="playPauseBtn">
+                                    <i class="fas fa-pause"></i>
+                                </button>
+                                <button class="music-btn" id="nextBtn">
+                                    <i class="fas fa-step-forward"></i>
+                                </button>
+                                <button class="music-btn like-btn" id="likeBtn">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Devices Page -->
+            <div id="devicesPage" class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">Devices</h1>
+                    <p class="page-description">Manage all your smart home devices in one place</p>
+                </div>
+                <div class="devices-grid-full">
+                    <div class="device-card">
+                        <div class="device-card-header">
+                            <div class="device-card-icon">💡</div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <h3 class="device-card-name">Living Room Lights</h3>
+                        <p class="device-card-type">Philips Hue - Connected</p>
+                        <div class="device-card-stats">
+                            <div class="device-stat">
+                                <div class="device-stat-value">75%</div>
+                                <div class="device-stat-label">Brightness</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">5h</div>
+                                <div class="device-stat-label">Today</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">22°C</div>
+                                <div class="device-stat-label">Temp</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card">
+                        <div class="device-card-header">
+                            <div class="device-card-icon">🌡️</div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <h3 class="device-card-name">Nest Thermostat</h3>
+                        <p class="device-card-type">Google - Eco Mode</p>
+                        <div class="device-card-stats">
+                            <div class="device-stat">
+                                <div class="device-stat-value">22°C</div>
+                                <div class="device-stat-label">Current</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">20°C</div>
+                                <div class="device-stat-label">Target</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">45%</div>
+                                <div class="device-stat-label">Humidity</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card">
+                        <div class="device-card-header">
+                            <div class="device-card-icon">🔒</div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <h3 class="device-card-name">Front Door Lock</h3>
+                        <p class="device-card-type">August - Locked</p>
+                        <div class="device-card-stats">
+                            <div class="device-stat">
+                                <div class="device-stat-value">12</div>
+                                <div class="device-stat-label">Today</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">2</div>
+                                <div class="device-stat-label">Users</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">100%</div>
+                                <div class="device-stat-label">Battery</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card">
+                        <div class="device-card-header">
+                            <div class="device-card-icon">📷</div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <h3 class="device-card-name">Security Camera</h3>
+                        <p class="device-card-type">Arlo - Recording</p>
+                        <div class="device-card-stats">
+                            <div class="device-stat">
+                                <div class="device-stat-value">24/7</div>
+                                <div class="device-stat-label">Recording</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">32GB</div>
+                                <div class="device-stat-label">Storage</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">5</div>
+                                <div class="device-stat-label">Alerts</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card">
+                        <div class="device-card-header">
+                            <div class="device-card-icon">🔊</div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <h3 class="device-card-name">Living Room Speaker</h3>
+                        <p class="device-card-type">Sonos - Playing</p>
+                        <div class="device-card-stats">
+                            <div class="device-stat">
+                                <div class="device-stat-value">60%</div>
+                                <div class="device-stat-label">Volume</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">3h</div>
+                                <div class="device-stat-label">Today</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">80%</div>
+                                <div class="device-stat-label">Battery</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="device-card">
+                        <div class="device-card-header">
+                            <div class="device-card-icon">💨</div>
+                            <label class="toggle-switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                        <h3 class="device-card-name">Air Purifier</h3>
+                        <p class="device-card-type">Dyson - Offline</p>
+                        <div class="device-card-stats">
+                            <div class="device-stat">
+                                <div class="device-stat-value">-</div>
+                                <div class="device-stat-label">AQI</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">-</div>
+                                <div class="device-stat-label">Filter</div>
+                            </div>
+                            <div class="device-stat">
+                                <div class="device-stat-value">-</div>
+                                <div class="device-stat-label">Status</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Statistics Page -->
+            <div id="statisticsPage" class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">Statistics</h1>
+                    <p class="page-description">View usage patterns and energy consumption</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Energy Consumption Today</div>
+                        <div class="stat-value">12.5 kWh</div>
+                        <div class="stat-change">↓ 15% from yesterday</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Monthly Energy Usage</div>
+                        <div class="stat-value">245 kWh</div>
+                        <div class="stat-change">↓ 8% from last month</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Device Usage Hours</div>
+                        <div class="stat-value">38.5 h</div>
+                        <div class="stat-change">↑ 12% from last week</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Estimated Monthly Cost</div>
+                        <div class="stat-value">$42.50</div>
+                        <div class="stat-change">↓ 5% from last month</div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Energy Consumption</h3>
+                        <div class="chart-options">
+                            <select id="chartRange">
+                                <option value="day">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        Energy Consumption Chart (Visualization would appear here)
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Device Usage</h3>
+                        <div class="chart-options">
+                            <select id="deviceChartRange">
+                                <option value="day">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-placeholder">
+                        Device Usage Chart (Visualization would appear here)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settingsPage" class="page-content">
+                <div class="page-header">
+                    <h1 class="page-title">Settings</h1>
+                    <p class="page-description">Configure your smart home system</p>
+                </div>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3 class="settings-title">General Settings</h3>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Home Name</div>
+                                <div class="settings-description">Change the name of your smart home</div>
+                            </div>
+                            <div class="settings-action">
+                                <button class="mode-btn">Edit</button>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Temperature Unit</div>
+                                <div class="settings-description">Celsius or Fahrenheit</div>
+                            </div>
+                            <div class="settings-action">
+                                <select>
+                                    <option>Celsius (°C)</option>
+                                    <option>Fahrenheit (°F)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Time Zone</div>
+                                <div class="settings-description">Set your local time zone</div>
+                            </div>
+                            <div class="settings-action">
+                                <select>
+                                    <option>(GMT-08:00) Pacific Time</option>
+                                    <option>(GMT-07:00) Mountain Time</option>
+                                    <option>(GMT-06:00) Central Time</option>
+                                    <option>(GMT-05:00) Eastern Time</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3 class="settings-title">Notifications</h3>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Email Notifications</div>
+                                <div class="settings-description">Receive alerts via email</div>
+                            </div>
+                            <div class="settings-action">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Push Notifications</div>
+                                <div class="settings-description">Receive alerts on your devices</div>
+                            </div>
+                            <div class="settings-action">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Security Alerts</div>
+                                <div class="settings-description">Get notified about security events</div>
+                            </div>
+                            <div class="settings-action">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <div class="settings-header">
+                            <h3 class="settings-title">Account</h3>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Profile Information</div>
+                                <div class="settings-description">Update your name and contact details</div>
+                            </div>
+                            <div class="settings-action">
+                                <button class="mode-btn">Edit</button>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Change Password</div>
+                                <div class="settings-description">Update your password regularly</div>
+                            </div>
+                            <div class="settings-action">
+                                <button class="mode-btn">Change</button>
+                            </div>
+                        </div>
+                        <div class="settings-item">
+                            <div class="settings-info">
+                                <div class="settings-label">Two-Factor Authentication</div>
+                                <div class="settings-description">Add an extra layer of security</div>
+                            </div>
+                            <div class="settings-action">
+                                <label class="toggle-switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="next-demo-container">
+            <style>
+                .next-demo-btn {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    padding: 12px 24px;
+                    background-color: #ffffff;
+                    color: #3b82f6;
+                    border: 2px solid #3b82f6;
+                    border-radius: 8px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                    z-index: 1000;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                    transition: all 0.3s ease;
+                }
+
+                .next-demo-btn:hover {
+                    background-color: #3b82f6;
+                    color: #ffffff;
+                    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+                }
+            </style>
+            <button id="nextDemoBtn" class="next-demo-btn">
+                Next Demo
+            </button>
+            <script>
+                document.getElementById('nextDemoBtn').addEventListener('click', function () {
+                    // Replace 'next-demo-page.html' with the actual file name of your next demo
+                    // and uncomment the line below to enable the navigation.
+                    window.location.href = '../Dashboard 3/index.html';
+                });
+            </script>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

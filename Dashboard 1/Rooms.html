@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - Smart Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <a href="../Index.html" class="nav-icon home" data-name="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="Dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
+            <i class="fas fa-chart-line"></i>
+        </a>
+        <a href="Rooms.html" class="nav-icon rooms" data-name="Rooms">
+            <i class="fas fa-door-open"></i>
+        </a>
+        <a href="Settings.html" class="nav-icon settings" data-name="Settings">
+            <i class="fas fa-cog"></i>
+        </a>
+        <a href="Help.html" class="nav-icon help" data-name="Help">
+            <i class="fas fa-question-circle"></i>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <div class="full-width-panel">
+            <div class="panel-title">
+                <i class="fas fa-door-open"></i>
+                <span>Room Management</span>
+            </div>
+            
+            <div class="rooms-grid">
+                <!-- Living Room Card -->
+                <div class="room-card">
+                    <div class="room-card-header">
+                        <div class="room-card-icon">
+                            <i class="fas fa-couch"></i>
+                        </div>
+                        <div class="room-card-title">Living Room</div>
+                    </div>
+                    <div class="room-card-content">
+                        <div class="room-status">
+                            <span class="status-indicator active"></span>
+                            <span class="status-text">Active • 72°F • 45% Humidity</span>
+                        </div>
+                        <div class="room-device-list">
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Main Lights</div>
+                                    <div class="room-device-status">On • 75% brightness</div>
+                                </div>
+                                <div class="room-device-value">On</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-thermometer-half"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Thermostat</div>
+                                    <div class="room-device-status">Cooling • 72°F</div>
+                                </div>
+                                <div class="room-device-value">Active</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Smart TV</div>
+                                    <div class="room-device-status">Off • 4 hrs ago</div>
+                                </div>
+                                <div class="room-device-value">Off</div>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="action-btn">
+                                <i class="fas fa-sliders-h"></i> Adjust Settings
+                            </button>
+                            <button class="action-btn primary">
+                                <i class="fas fa-power-off"></i> Turn Off All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bedroom Card -->
+                <div class="room-card">
+                    <div class="room-card-header">
+                        <div class="room-card-icon">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <div class="room-card-title">Master Bedroom</div>
+                    </div>
+                    <div class="room-card-content">
+                        <div class="room-status">
+                            <span class="status-indicator inactive"></span>
+                            <span class="status-text">Inactive • 68°F • 50% Humidity</span>
+                        </div>
+                        <div class="room-device-list">
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Bedside Lamp</div>
+                                    <div class="room-device-status">Off • 30% brightness</div>
+                                </div>
+                                <div class="room-device-value">Off</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-thermometer-half"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Thermostat</div>
+                                    <div class="room-device-status">Idle • 68°F</div>
+                                </div>
+                                <div class="room-device-value">Standby</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-blinds"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Window Blinds</div>
+                                    <div class="room-device-status">Closed • 8:00 PM</div>
+                                </div>
+                                <div class="room-device-value">Closed</div>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="action-btn">
+                                <i class="fas fa-sliders-h"></i> Adjust Settings
+                            </button>
+                            <button class="action-btn primary">
+                                <i class="fas fa-power-off"></i> Turn On All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kitchen Card -->
+                <div class="room-card">
+                    <div class="room-card-header">
+                        <div class="room-card-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="room-card-title">Kitchen</div>
+                    </div>
+                    <div class="room-card-content">
+                        <div class="room-status">
+                            <span class="status-indicator active"></span>
+                            <span class="status-text">Active • 70°F • 40% Humidity</span>
+                        </div>
+                        <div class="room-device-list">
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Overhead Lights</div>
+                                    <div class="room-device-status">On • 90% brightness</div>
+                                </div>
+                                <div class="room-device-value">On</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-blender"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Smart Refrigerator</div>
+                                    <div class="room-device-status">Running • 37°F</div>
+                                </div>
+                                <div class="room-device-value">Active</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-coffee"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Coffee Maker</div>
+                                    <div class="room-device-status">Ready • 7:00 AM schedule</div>
+                                </div>
+                                <div class="room-device-value">Standby</div>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="action-btn">
+                                <i class="fas fa-sliders-h"></i> Adjust Settings
+                            </button>
+                            <button class="action-btn primary">
+                                <i class="fas fa-power-off"></i> Turn Off All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bathroom Card -->
+                <div class="room-card">
+                    <div class="room-card-header">
+                        <div class="room-card-icon">
+                            <i class="fas fa-bath"></i>
+                        </div>
+                        <div class="room-card-title">Bathroom</div>
+                    </div>
+                    <div class="room-card-content">
+                        <div class="room-status">
+                            <span class="status-indicator inactive"></span>
+                            <span class="status-text">Inactive • 71°F • 55% Humidity</span>
+                        </div>
+                        <div class="room-device-list">
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-lightbulb"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Vanity Lights</div>
+                                    <div class="room-device-status">Off • 60% brightness</div>
+                                </div>
+                                <div class="room-device-value">Off</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-wind"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Exhaust Fan</div>
+                                    <div class="room-device-status">Off • Auto humidity control</div>
+                                </div>
+                                <div class="room-device-value">Off</div>
+                            </div>
+                            <div class="room-device-item">
+                                <div class="room-device-icon">
+                                    <i class="fas fa-shower"></i>
+                                </div>
+                                <div class="room-device-info">
+                                    <div class="room-device-name">Smart Shower</div>
+                                    <div class="room-device-status">Ready • 102°F preset</div>
+                                </div>
+                                <div class="room-device-value">Ready</div>
+                            </div>
+                        </div>
+                        <div class="room-actions">
+                            <button class="action-btn">
+                                <i class="fas fa-sliders-h"></i> Adjust Settings
+                            </button>
+                            <button class="action-btn primary">
+                                <i class="fas fa-power-off"></i> Turn On All
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
