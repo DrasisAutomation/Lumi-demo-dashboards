@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rooms - Smart Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="Styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
         <a href="../index.html" class="nav-icon home" data-name="Home">
             <i class="fas fa-home"></i>
         </a>
-        <a href="dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
+        <a href="Dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
             <i class="fas fa-chart-line"></i>
         </a>
         <a href="Rooms.html" class="nav-icon rooms" data-name="Rooms">
@@ -23,9 +23,6 @@
         </a>
         <a href="Settings.html" class="nav-icon settings" data-name="Settings">
             <i class="fas fa-cog"></i>
-        </a>
-        <a href="Help.html" class="nav-icon help" data-name="Help">
-            <i class="fas fa-question-circle"></i>
         </a>
     </nav>
 
@@ -39,7 +36,7 @@
             
             <div class="rooms-grid">
                 <!-- Living Room Card -->
-                <div class="room-card">
+                <div class="room-card" id="livingRoom">
                     <div class="room-card-header">
                         <div class="room-card-icon">
                             <i class="fas fa-couch"></i>
@@ -84,10 +81,7 @@
                             </div>
                         </div>
                         <div class="room-actions">
-                            <button class="action-btn">
-                                <i class="fas fa-sliders-h"></i> Adjust Settings
-                            </button>
-                            <button class="action-btn primary">
+                            <button class="action-btn primary turn-off-btn" data-room="livingRoom">
                                 <i class="fas fa-power-off"></i> Turn Off All
                             </button>
                         </div>
@@ -95,7 +89,7 @@
                 </div>
 
                 <!-- Bedroom Card -->
-                <div class="room-card">
+                <div class="room-card" id="bedroom">
                     <div class="room-card-header">
                         <div class="room-card-icon">
                             <i class="fas fa-bed"></i>
@@ -140,10 +134,7 @@
                             </div>
                         </div>
                         <div class="room-actions">
-                            <button class="action-btn">
-                                <i class="fas fa-sliders-h"></i> Adjust Settings
-                            </button>
-                            <button class="action-btn primary">
+                            <button class="action-btn primary turn-on-btn" data-room="bedroom">
                                 <i class="fas fa-power-off"></i> Turn On All
                             </button>
                         </div>
@@ -151,7 +142,7 @@
                 </div>
 
                 <!-- Kitchen Card -->
-                <div class="room-card">
+                <div class="room-card" id="kitchen">
                     <div class="room-card-header">
                         <div class="room-card-icon">
                             <i class="fas fa-utensils"></i>
@@ -196,10 +187,7 @@
                             </div>
                         </div>
                         <div class="room-actions">
-                            <button class="action-btn">
-                                <i class="fas fa-sliders-h"></i> Adjust Settings
-                            </button>
-                            <button class="action-btn primary">
+                            <button class="action-btn primary turn-off-btn" data-room="kitchen">
                                 <i class="fas fa-power-off"></i> Turn Off All
                             </button>
                         </div>
@@ -207,7 +195,7 @@
                 </div>
 
                 <!-- Bathroom Card -->
-                <div class="room-card">
+                <div class="room-card" id="bathroom">
                     <div class="room-card-header">
                         <div class="room-card-icon">
                             <i class="fas fa-bath"></i>
@@ -252,10 +240,7 @@
                             </div>
                         </div>
                         <div class="room-actions">
-                            <button class="action-btn">
-                                <i class="fas fa-sliders-h"></i> Adjust Settings
-                            </button>
-                            <button class="action-btn primary">
+                            <button class="action-btn primary turn-on-btn" data-room="bathroom">
                                 <i class="fas fa-power-off"></i> Turn On All
                             </button>
                         </div>
@@ -265,6 +250,193 @@
         </div>
     </main>
 
+    <script>
+        // Rooms page specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current page indicator in navigation
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            const navIcons = document.querySelectorAll('.nav-icon');
+            
+            navIcons.forEach(icon => {
+                const href = icon.getAttribute('href');
+                if (href === currentPage || (currentPage === '' && href === 'index.html')) {
+                    icon.style.background = 'rgba(66, 165, 245, 0.2)';
+                    icon.style.color = '#42A5F5';
+                }
+            });
+            
+            // Check for saved dark mode preference and apply
+            const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+            if (savedDarkMode) {
+                document.body.classList.add('dark-mode');
+            }
+            
+            // Add event listeners to all buttons
+            initializeRoomButtons();
+        });
+        
+        function initializeRoomButtons() {
+            // Adjust Settings buttons
+            const adjustButtons = document.querySelectorAll('.adjust-settings-btn');
+            adjustButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const roomId = this.getAttribute('data-room');
+                    toggleAdjustSettings(roomId);
+                });
+            });
+            
+            // Turn On/Off All buttons
+            const turnOnButtons = document.querySelectorAll('.turn-on-btn');
+            const turnOffButtons = document.querySelectorAll('.turn-off-btn');
+            
+            turnOnButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const roomId = this.getAttribute('data-room');
+                    turnAllDevicesOn(roomId);
+                });
+            });
+            
+            turnOffButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const roomId = this.getAttribute('data-room');
+                    turnAllDevicesOff(roomId);
+                });
+            });
+        }
+        
+        function toggleAdjustSettings(roomId) {
+            // This would typically open a modal or expand section with device controls
+            alert(`Adjust settings for ${roomId}. This would open detailed controls in a real application.`);
+            
+            // Example of dynamic UI update
+            const roomCard = document.getElementById(roomId);
+            const statusIndicator = roomCard.querySelector('.status-indicator');
+            const statusText = roomCard.querySelector('.status-text');
+            
+            // Toggle active state for demo purposes
+            if (statusIndicator.classList.contains('active')) {
+                statusIndicator.classList.remove('active');
+                statusIndicator.classList.add('inactive');
+                statusText.textContent = statusText.textContent.replace('Active', 'Adjusting');
+            } else {
+                statusIndicator.classList.remove('inactive');
+                statusIndicator.classList.add('active');
+                statusText.textContent = statusText.textContent.replace('Inactive', 'Active')
+                                                              .replace('Adjusting', 'Active');
+            }
+        }
+        
+        function turnAllDevicesOn(roomId) {
+            const roomCard = document.getElementById(roomId);
+            const deviceValues = roomCard.querySelectorAll('.room-device-value');
+            const statusIndicator = roomCard.querySelector('.status-indicator');
+            const statusText = roomCard.querySelector('.status-text');
+            const turnButton = roomCard.querySelector('.turn-on-btn');
+            
+            // Update device statuses
+            deviceValues.forEach(value => {
+                if (value.textContent === 'Off' || value.textContent === 'Standby') {
+                    value.textContent = 'On';
+                }
+            });
+            
+            // Update room status
+            statusIndicator.classList.remove('inactive');
+            statusIndicator.classList.add('active');
+            statusText.textContent = statusText.textContent.replace('Inactive', 'Active');
+            
+            // Change button to Turn Off
+            turnButton.innerHTML = '<i class="fas fa-power-off"></i> Turn Off All';
+            turnButton.classList.remove('turn-on-btn');
+            turnButton.classList.add('turn-off-btn');
+            
+            // Update event listener
+            turnButton.removeEventListener('click', arguments.callee);
+            turnButton.addEventListener('click', function() {
+                turnAllDevicesOff(roomId);
+            });
+            
+            // Show confirmation
+            showNotification(`All devices in ${getRoomName(roomId)} turned on`);
+        }
+        
+        function turnAllDevicesOff(roomId) {
+            const roomCard = document.getElementById(roomId);
+            const deviceValues = roomCard.querySelectorAll('.room-device-value');
+            const statusIndicator = roomCard.querySelector('.status-indicator');
+            const statusText = roomCard.querySelector('.status-text');
+            const turnButton = roomCard.querySelector('.turn-off-btn');
+            
+            // Update device statuses
+            deviceValues.forEach(value => {
+                if (value.textContent === 'On' || value.textContent === 'Active') {
+                    value.textContent = Math.random() > 0.5 ? 'Off' : 'Standby';
+                }
+            });
+            
+            // Update room status
+            statusIndicator.classList.remove('active');
+            statusIndicator.classList.add('inactive');
+            statusText.textContent = statusText.textContent.replace('Active', 'Inactive');
+            
+            // Change button to Turn On
+            turnButton.innerHTML = '<i class="fas fa-power-off"></i> Turn On All';
+            turnButton.classList.remove('turn-off-btn');
+            turnButton.classList.add('turn-on-btn');
+            
+            // Update event listener
+            turnButton.removeEventListener('click', arguments.callee);
+            turnButton.addEventListener('click', function() {
+                turnAllDevicesOn(roomId);
+            });
+            
+            // Show confirmation
+            showNotification(`All devices in ${getRoomName(roomId)} turned off`);
+        }
+        
+        function getRoomName(roomId) {
+            const roomTitles = {
+                'livingRoom': 'Living Room',
+                'bedroom': 'Master Bedroom',
+                'kitchen': 'Kitchen',
+                'bathroom': 'Bathroom'
+            };
+            return roomTitles[roomId] || roomId;
+        }
+        
+        function showNotification(message) {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = 'room-notification';
+            notification.textContent = message;
+            
+            // Style the notification
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.right = '20px';
+            notification.style.background = '#42A5F5';
+            notification.style.color = 'white';
+            notification.style.padding = '10px 20px';
+            notification.style.borderRadius = '5px';
+            notification.style.zIndex = '1000';
+            notification.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            
+            // Add to page
+            document.body.appendChild(notification);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.5s';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 500);
+            }, 3000);
+        }
+    </script>
+    
     <script src="script.js"></script>
 </body>
 

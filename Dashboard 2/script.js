@@ -65,6 +65,27 @@ function loadRoom(room) {
     brightnessSlider.value = data.brightness;
     document.getElementById("brightnessValue").textContent = data.brightness + "%";
 }
+const brightnessSliderEl = document.getElementById("brightnessSlider");
+const colorButtonsEl = document.querySelectorAll(".color-btn");
+
+colorButtonsEl.forEach(btn => {
+    btn.addEventListener("click", () => {
+        colorButtonsEl.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const selectedColor = btn.dataset.color;
+
+        // ✅ update slider's CSS variable
+        brightnessSliderEl.style.setProperty("--dot-color", selectedColor);
+    });
+});
+
+// ✅ set initial dot color from the active color button
+const activeBtn = document.querySelector(".color-btn.active");
+if (activeBtn) {
+    brightnessSliderEl.style.setProperty("--dot-color", activeBtn.dataset.color);
+}
+
 
 function applyScene(scene) {
     const data = sceneData[scene];
