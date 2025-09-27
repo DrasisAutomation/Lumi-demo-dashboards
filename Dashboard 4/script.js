@@ -25,7 +25,17 @@ class SmartHomeDashboard {
             this.logActivity('Auto updates disabled');
         }
     }
+    openRoomFromOverview(roomId) {
+        // Close the left panel (overview)
+        const leftPanel = document.getElementById('leftPanel');
+        const overlay = document.getElementById('overlay');
 
+        leftPanel.classList.remove('active');
+        overlay.classList.remove('active');
+
+        // Open the specific room control panel
+        this.showRoomControls(roomId);
+    }
     toggleEnergySavings() {
         const energySavings = this.energySavings = !this.energySavings;
         const toggleSwitch = event.target.closest('.toggle-switch');
@@ -482,76 +492,92 @@ class SmartHomeDashboard {
 
     generateOverviewContent() {
         return `
-        <div class="control-section">
-            <div class="section-title">🏠 System Status</div>
-            <div class="control-item">
-                <div class="control-label">System Power</div>
-                <div class="toggle-switch ${this.systemPower ? 'active' : ''}" 
-                     onclick="dashboard.toggleSystemPower()">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            <div class="control-item">
-                <div class="control-label">Security Armed</div>
-                <div class="toggle-switch ${this.securityArmed ? 'active' : ''}" 
-                     onclick="dashboard.toggleSecurityArmed()">
-                    <div class="toggle-slider"></div>
-                </div>
-            </div>
-            <div class="control-item">
-                <div class="control-label">Away Mode</div>
-                <div class="toggle-switch ${this.awayMode ? 'active' : ''}" 
-                     onclick="dashboard.toggleAwayMode()">
-                    <div class="toggle-slider"></div>
-                </div>
+    <div class="control-section">
+        <div class="section-title">🏠 System Status</div>
+        <div class="control-item">
+            <div class="control-label">System Power</div>
+            <div class="toggle-switch ${this.systemPower ? 'active' : ''}" 
+                 onclick="dashboard.toggleSystemPower()">
+                <div class="toggle-slider"></div>
             </div>
         </div>
-        
-        <div class="control-section">
-            <div class="section-title">📊 Quick Stats</div>
-            <div class="control-item">
-                <div class="control-label">Active Devices</div>
-                <span>16/24</span>
-            </div>
-            <div class="control-item">
-                <div class="control-label">Energy Usage</div>
-                <span>2.4 kWh</span>
-            </div>
-            <div class="control-item">
-                <div class="control-label">Temperature Avg</div>
-                <span>23°C</span>
+        <div class="control-item">
+            <div class="control-label">Security Armed</div>
+            <div class="toggle-switch ${this.securityArmed ? 'active' : ''}" 
+                 onclick="dashboard.toggleSecurityArmed()">
+                <div class="toggle-slider"></div>
             </div>
         </div>
+        <div class="control-item">
+            <div class="control-label">Away Mode</div>
+            <div class="toggle-switch ${this.awayMode ? 'active' : ''}" 
+                 onclick="dashboard.toggleAwayMode()">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="control-section">
+        <div class="section-title">📊 Quick Stats</div>
+        <div class="control-item">
+            <div class="control-label">Active Devices</div>
+            <span>16/24</span>
+        </div>
+        <div class="control-item">
+            <div class="control-label">Energy Usage</div>
+            <span>2.4 kWh</span>
+        </div>
+        <div class="control-item">
+            <div class="control-label">Temperature Avg</div>
+            <span>23°C</span>
+        </div>
+    </div>
+    
+    <div class="control-section">
+        <div class="section-title">🚪 Room Quick Access</div>
+        ${Object.entries(this.rooms).map(([id, room]) => {
+            const lightCount = Object.values(room.devices).filter(d => d.type === 'light' && d.status).length;
+            const totalLights = Object.values(room.devices).filter(d => d.type === 'light').length;
+            return `
+                <div class="control-item">
+                    <div class="control-label">${room.icon} ${room.name}</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 11px; color: #666;">Lights: ${lightCount}/${totalLights}</span>
+                        <button class="quick-btn" onclick="dashboard.openRoomFromOverview('${id}')">Control</button>
+                    </div>
+                </div>
+            `;
+        }).join('')}
+    </div>
     `;
     }
     generateRoomsContent() {
         return `
-        <div class="control-section">
-            <div class="section-title">🏠 All Rooms</div>
-            ${Object.entries(this.rooms).map(([id, room]) => {
+    <div class="control-section">
+        <div class="section-title">🏠 All Rooms</div>
+        ${Object.entries(this.rooms).map(([id, room]) => {
             const lightCount = Object.values(room.devices).filter(d => d.type === 'light' && d.status).length;
             const totalLights = Object.values(room.devices).filter(d => d.type === 'light').length;
             return `
-                    <div class="control-item">
-                        <div class="control-label">${room.icon} ${room.name}</div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span style="font-size: 11px; color: #666;">Lights: ${lightCount}/${totalLights}</span>
-                            <button class="quick-btn" onclick="dashboard.showRoomControls('${id}')">Control</button>
-                        </div>
+                <div class="control-item">
+                    <div class="control-label">${room.icon} ${room.name}</div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span style="font-size: 11px; color: #666;">Lights: ${lightCount}/${totalLights}</span>
+                        <button class="quick-btn" onclick="dashboard.openRoomFromOverview('${id}')">Control</button>
                     </div>
-                `;
+                </div>
+            `;
         }).join('')}
-        </div>
-        
-        <div class="quick-actions">
-            <button class="quick-btn" onclick="dashboard.quickAction('allLightsOn')">All Lights On</button>
-            <button class="quick-btn" onclick="dashboard.quickAction('allLightsOff')">All Lights Off</button>
-            <button class="quick-btn" onclick="dashboard.quickAction('nightMode')">Night Mode</button>
-            <button class="quick-btn" onclick="dashboard.quickAction('awayMode')">Away Mode</button>
-        </div>
+    </div>
+    
+    <div class="quick-actions">
+        <button class="quick-btn" onclick="dashboard.quickAction('allLightsOn')">All Lights On</button>
+        <button class="quick-btn" onclick="dashboard.quickAction('allLightsOff')">All Lights Off</button>
+        <button class="quick-btn" onclick="dashboard.quickAction('nightMode')">Night Mode</button>
+        <button class="quick-btn" onclick="dashboard.quickAction('awayMode')">Away Mode</button>
+    </div>
     `;
     }
-
     generateEnergyContent() {
         return `
         <div class="control-section">

@@ -1195,7 +1195,7 @@ input:checked+.toggle-slider:before {
 
     .main-content {
         margin-left: 0;
-        padding: 16px 16px 16px;
+        padding: 16px 16px 16px !important;
     }
 
     .dashboard-content {
