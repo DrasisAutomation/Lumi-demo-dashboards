@@ -9,43 +9,47 @@
             background: #f8fafc;
             overflow-x: hidden;
         }
-.brightness-slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 5px;
-  background: #ddd;
-  outline: none;
-  cursor: pointer;
-  --dot-color: #ffd700; /* default dot color */
-}
 
-/* Chrome / Safari / Edge */
-.brightness-slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff; /* outer ring */
-  border: 2px solid #ccc;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 8px var(--dot-color); /* inner dot color */
-  transition: box-shadow 0.2s;
-}
+        .brightness-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            cursor: pointer;
+            --dot-color: #ffd700;
+            /* default dot color */
+        }
 
-/* Firefox */
-.brightness-slider::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #ccc;
-  cursor: pointer;
-  box-shadow: inset 0 0 0 8px var(--dot-color);
-  transition: box-shadow 0.2s;
-}
+        /* Chrome / Safari / Edge */
+        .brightness-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            /* outer ring */
+            border: 2px solid #ccc;
+            cursor: pointer;
+            box-shadow: inset 0 0 0 8px var(--dot-color);
+            /* inner dot color */
+            transition: box-shadow 0.2s;
+        }
+
+        /* Firefox */
+        .brightness-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            box-shadow: inset 0 0 0 8px var(--dot-color);
+            transition: box-shadow 0.2s;
+        }
 
 
 

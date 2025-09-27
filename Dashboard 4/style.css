@@ -369,6 +369,18 @@
             right: 0;
         }
 
+        .side-panel.left {
+            left: -100%;
+            right: auto;
+            transition: left 0.4s ease;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15);
+            /* shadow on right edge */
+        }
+
+        .side-panel.left.active {
+            left: 0;
+        }
+
         .panel-header {
             display: flex;
             justify-content: space-between;
@@ -710,9 +722,6 @@
         }
 
         @media (max-width: 480px) {
-            .nav-tabs {
-                display: none;
-            }
 
             .zoom-info {
                 font-size: 10px;
@@ -760,4 +769,8 @@
             font-size: 15px;
             padding: 11px 15px;
             min-width: 120px;
+        }
+
+        .sethide{
+            display: none;
         }
