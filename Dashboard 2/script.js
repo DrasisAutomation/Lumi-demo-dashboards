@@ -1,29 +1,55 @@
 const roomData = {
-    office: {
-        temperature: 22,
-        humidity: 70,
-        devices: { chandelier: false, "table-lamp": true, "floor-lamp": false },
-        brightness: 75
-    },
-    kitchen: {
-        temperature: 20,
-        humidity: 60,
-        devices: { chandelier: true, "table-lamp": false, "floor-lamp": true },
-        brightness: 50
-    },
-    bedroom: {
-        temperature: 24,
-        humidity: 65,
-        devices: { chandelier: false, "table-lamp": true, "floor-lamp": true },
-        brightness: 40
-    },
-    livingroom: {
-        temperature: 23,
-        humidity: 55,
-        devices: { chandelier: true, "table-lamp": true, "floor-lamp": false },
-        brightness: 80
-    }
+  office: {
+    temperature: 22,
+    humidity: 70,
+    brightness: 75,
+    devices: [
+      { id: "chandelier", name: "Chandelier", type: "Light", on: false },
+      { id: "table-lamp", name: "Table Lamp", type: "Light", on: true },
+      { id: "floor-lamp", name: "Floor Lamp", type: "Light", on: false },
+      { id: "homepod", name: "Apple HomePod", type: "Audio", on: true },
+      { id: "dyson", name: "Dyson Purifier", type: "Air", on: false }
+    ]
+  },
+
+  kitchen: {
+    temperature: 20,
+    humidity: 60,
+    brightness: 50,
+    devices: [
+      { id: "chandelier", name: "Chandelier", type: "Light", on: true },
+      { id: "planter", name: "Eco Planter", type: "Plant", on: false },
+      { id: "wyze", name: "Wyze Bulb", type: "Light", on: true },
+      { id: "coffee", name: "Smart Coffee Maker", type: "Appliance", on: false }
+    ]
+  },
+
+  bedroom: {
+    temperature: 24,
+    humidity: 65,
+    brightness: 40,
+    devices: [
+      { id: "bed-lamp", name: "Bedside Lamp", type: "Light", on: true },
+      { id: "floor-lamp", name: "Floor Lamp", type: "Light", on: true },
+      { id: "nest", name: "Nest Thermostat", type: "Climate", on: true },
+      { id: "speaker", name: "Smart Speaker", type: "Audio", on: false }
+    ]
+  },
+
+  livingroom: {
+    temperature: 23,
+    humidity: 55,
+    brightness: 80,
+    devices: [
+      { id: "chandelier", name: "Chandelier", type: "Light", on: true },
+      { id: "table-lamp", name: "Table Lamp", type: "Light", on: true },
+      { id: "tv", name: "Smart TV", type: "Entertainment", on: true },
+      { id: "sonos", name: "Sonos Speaker", type: "Audio", on: true },
+      { id: "airpurifier", name: "Dyson Air Purifier", type: "Air", on: false }
+    ]
+  }
 };
+
 
 const sceneData = {
     none: {
@@ -49,22 +75,17 @@ const sceneData = {
 
 
 function loadRoom(room) {
-    const data = roomData[room];
+  const data = roomData[room];
 
-    updateTemperature(data.temperature);
+  updateTemperature(data.temperature);
+  document.getElementById("humidityValue").textContent = data.humidity;
+  document.getElementById("brightnessSlider").value = data.brightness;
+  document.getElementById("brightnessValue").textContent = data.brightness + "%";
 
-    document.getElementById("humidityValue").textContent = data.humidity;
-    const progress = document.querySelector(".humidity-progress");
-    progress.style.strokeDashoffset = 283 - (data.humidity / 100) * 283;
-
-    document.querySelectorAll(".device-toggle").forEach(input => {
-        input.checked = data.devices[input.dataset.device] || false;
-    });
-
-    const brightnessSlider = document.getElementById("brightnessSlider");
-    brightnessSlider.value = data.brightness;
-    document.getElementById("brightnessValue").textContent = data.brightness + "%";
+  renderDevices(data.devices);
+  renderSmartDevices(data.devices);
 }
+
 const brightnessSliderEl = document.getElementById("brightnessSlider");
 const colorButtonsEl = document.querySelectorAll(".color-btn");
 
@@ -175,7 +196,7 @@ document.addEventListener('touchmove', (e) => {
     const sliderCenterY = rect.top + rect.height / 2;
 
     let angle = Math.atan2(sliderCenterY - touch.clientY, touch.clientX - sliderCenterX) * (180 / Math.PI);
-    if (angle < 0) angle += 360;
+    angle = (angle + 270 + 360) % 360;  // ✅ same as pointermove
 
     let value = Math.round(((360 - angle) / 360) * (maxValue - minValue) + minValue);
     value = Math.max(minValue, Math.min(maxValue, value));
@@ -435,4 +456,52 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+});
+
+function renderDevices(devices) {
+  const container = document.querySelector(".device-list");
+  container.innerHTML = ""; // clear old devices
+
+  devices.forEach(dev => {
+    const item = document.createElement("div");
+    item.className = "device-item";
+    item.innerHTML = `
+      <span>${dev.name}</span>
+      <label class="toggle-switch">
+        <input type="checkbox" class="device-toggle" data-device="${dev.id}" ${dev.on ? "checked" : ""}>
+        <span class="slider"></span>
+      </label>
+    `;
+    container.appendChild(item);
+  });
+}
+
+function renderSmartDevices(devices) {
+  const grid = document.querySelector(".devices-grid");
+  grid.innerHTML = "";
+
+  devices.forEach(dev => {
+    const card = document.createElement("div");
+    card.className = "smart-device";
+    card.innerHTML = `
+      <div class="device-icon">💡</div>
+      <div class="device-info">
+        <div class="device-name">${dev.name}</div>
+        <div class="device-type">${dev.type}</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" class="smart-device-toggle" data-device="${dev.id}" ${dev.on ? "checked" : ""}>
+        <span class="slider"></span>
+      </label>
+    `;
+    grid.appendChild(card);
+  });
+}
+document.addEventListener("change", (e) => {
+  if (e.target.classList.contains("device-toggle") || e.target.classList.contains("smart-device-toggle")) {
+    const room = document.querySelector(".room-tab.active").dataset.room;
+    const devId = e.target.dataset.device;
+    const dev = roomData[room].devices.find(d => d.id === devId);
+    if (dev) dev.on = e.target.checked;
+  }
 });
