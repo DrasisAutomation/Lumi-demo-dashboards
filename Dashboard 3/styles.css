@@ -76,6 +76,7 @@ body {
 }
 
 .main-content {
+    margin: 0 !important;
     flex: 1;
     padding: 24px;
     transition: margin-left 0.3s ease;
