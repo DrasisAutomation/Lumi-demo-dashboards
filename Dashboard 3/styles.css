@@ -1195,13 +1195,15 @@ input:checked+.toggle-slider:before {
 
     .main-content {
         margin-left: 0;
-        padding: 80px 16px 16px;
+        padding: 16px 16px 16px;
     }
 
     .dashboard-content {
         grid-template-columns: 1fr;
     }
-
+    .hamburger-btn{
+        display: none;
+    }
     .top-bar {
         flex-direction: column;
         gap: 16px;

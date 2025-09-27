@@ -174,7 +174,10 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('temperatureChart')) {
         initTemperatureChart();
     }
-    
+        // Initialize settings if on settings page
+    if (document.querySelector('.settings-grid')) {
+        initializeSettings();
+    }
     // Set up event listeners
     const modeToggle = document.getElementById('modeToggle');
     if (modeToggle) {
@@ -275,4 +278,149 @@ function toggleDarkMode() {
             transitionOverlay.classList.remove('active');
         }, 300);
     }, 50);
+}
+
+// Settings functions
+function editSystemName() {
+    const currentName = document.getElementById('systemNameValue').textContent;
+    const newName = prompt('Enter new system name:', currentName);
+    if (newName && newName.trim() !== '') {
+        document.getElementById('systemNameValue').textContent = newName.trim();
+        // Save to localStorage
+        localStorage.setItem('systemName', newName.trim());
+    }
+}
+
+function toggleTempUnit() {
+    const tempUnitElement = document.getElementById('tempUnitValue');
+    const currentUnit = tempUnitElement.textContent.includes('Fahrenheit') ? 'F' : 'C';
+    const newUnit = currentUnit === 'F' ? 'Celsius (°C)' : 'Fahrenheit (°F)';
+    tempUnitElement.textContent = newUnit;
+    // Save to localStorage
+    localStorage.setItem('temperatureUnit', currentUnit === 'F' ? 'C' : 'F');
+}
+
+function toggleAutoPowerSaving(checkbox) {
+    const label = document.getElementById('autoPowerSavingLabel');
+    label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+    // Save to localStorage
+    localStorage.setItem('autoPowerSaving', checkbox.checked);
+}
+
+function toggleTwoFactorAuth(checkbox) {
+    const label = document.getElementById('twoFactorAuthLabel');
+    label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+    // Save to localStorage
+    localStorage.setItem('twoFactorAuth', checkbox.checked);
+}
+
+function toggleAutoLock(checkbox) {
+    const label = document.getElementById('autoLockLabel');
+    label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+    // Save to localStorage
+    localStorage.setItem('autoLock', checkbox.checked);
+}
+
+function toggleSecurityNotifications(checkbox) {
+    const label = document.getElementById('securityNotificationsLabel');
+    label.textContent = checkbox.checked ? 'All Events' : 'Disabled';
+    // Save to localStorage
+    localStorage.setItem('securityNotifications', checkbox.checked);
+}
+
+function togglePushNotifications(checkbox) {
+    const label = document.getElementById('pushNotificationsLabel');
+    label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+    // Save to localStorage
+    localStorage.setItem('pushNotifications', checkbox.checked);
+}
+
+function toggleSoundAlerts(checkbox) {
+    const label = document.getElementById('soundAlertsLabel');
+    label.textContent = checkbox.checked ? 'Enabled' : 'Disabled';
+    // Save to localStorage
+    localStorage.setItem('soundAlerts', checkbox.checked);
+}
+
+function updateNotificationVolume(value) {
+    document.getElementById('notificationVolumeValue').textContent = value + '%';
+    // Save to localStorage
+    localStorage.setItem('notificationVolume', value);
+}
+
+// Initialize settings from localStorage
+function initializeSettings() {
+    // System Name
+    const savedSystemName = localStorage.getItem('systemName');
+    if (savedSystemName) {
+        document.getElementById('systemNameValue').textContent = savedSystemName;
+    }
+    
+    // Temperature Unit
+    const savedTempUnit = localStorage.getItem('temperatureUnit');
+    if (savedTempUnit) {
+        document.getElementById('tempUnitValue').textContent = 
+            savedTempUnit === 'F' ? 'Fahrenheit (°F)' : 'Celsius (°C)';
+    }
+    
+    // Auto Power Saving
+    const savedAutoPowerSaving = localStorage.getItem('autoPowerSaving');
+    if (savedAutoPowerSaving !== null) {
+        const checkbox = document.getElementById('autoPowerSaving');
+        checkbox.checked = savedAutoPowerSaving === 'true';
+        document.getElementById('autoPowerSavingLabel').textContent = 
+            checkbox.checked ? 'Enabled' : 'Disabled';
+    }
+    
+    // Two-Factor Authentication
+    const savedTwoFactorAuth = localStorage.getItem('twoFactorAuth');
+    if (savedTwoFactorAuth !== null) {
+        const checkbox = document.getElementById('twoFactorAuth');
+        checkbox.checked = savedTwoFactorAuth === 'true';
+        document.getElementById('twoFactorAuthLabel').textContent = 
+            checkbox.checked ? 'Enabled' : 'Disabled';
+    }
+    
+    // Auto-Lock
+    const savedAutoLock = localStorage.getItem('autoLock');
+    if (savedAutoLock !== null) {
+        const checkbox = document.getElementById('autoLock');
+        checkbox.checked = savedAutoLock === 'true';
+        document.getElementById('autoLockLabel').textContent = 
+            checkbox.checked ? 'Enabled' : 'Disabled';
+    }
+    
+    // Security Notifications
+    const savedSecurityNotifications = localStorage.getItem('securityNotifications');
+    if (savedSecurityNotifications !== null) {
+        const checkbox = document.getElementById('securityNotifications');
+        checkbox.checked = savedSecurityNotifications === 'true';
+        document.getElementById('securityNotificationsLabel').textContent = 
+            checkbox.checked ? 'All Events' : 'Disabled';
+    }
+    
+    // Push Notifications
+    const savedPushNotifications = localStorage.getItem('pushNotifications');
+    if (savedPushNotifications !== null) {
+        const checkbox = document.getElementById('pushNotifications');
+        checkbox.checked = savedPushNotifications === 'true';
+        document.getElementById('pushNotificationsLabel').textContent = 
+            checkbox.checked ? 'Enabled' : 'Disabled';
+    }
+    
+    // Sound Alerts
+    const savedSoundAlerts = localStorage.getItem('soundAlerts');
+    if (savedSoundAlerts !== null) {
+        const checkbox = document.getElementById('soundAlerts');
+        checkbox.checked = savedSoundAlerts === 'true';
+        document.getElementById('soundAlertsLabel').textContent = 
+            checkbox.checked ? 'Enabled' : 'Disabled';
+    }
+    
+    // Notification Volume
+    const savedNotificationVolume = localStorage.getItem('notificationVolume');
+    if (savedNotificationVolume) {
+        document.getElementById('notificationVolume').value = savedNotificationVolume;
+        document.getElementById('notificationVolumeValue').textContent = savedNotificationVolume + '%';
+    }
 }
