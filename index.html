@@ -338,39 +338,39 @@
         </div>
     </main>
     <div class="next-demo-container">
-    <style>
-        .next-demo-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            padding: 12px 24px;
-            background-color: rgb(255, 255, 255, 0.4);
-            color: #3b82f6;
-            border: 2px solid #3b82f6;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
+        <style>
+            .next-demo-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 15px;
+                background-color: rgb(255, 255, 255, 0.4);
+                color: #3b82f6;
+                border: 2px solid #3b82f6;
+                border-radius: 50%;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
 
-        .next-demo-btn:hover {
-            background-color: #3b82f6;
-            color: #ffffff;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-    </style>
-    <button id="nextDemoBtn" class="next-demo-btn">
-        Next Demo
-    </button>
-    <script>
-        document.getElementById('nextDemoBtn').addEventListener('click', function() {
-            window.location.href = './Dashboard 2/index.html';
-        });
-    </script>
-</div>
+            .next-demo-btn:hover {
+                background-color: #3b82f6;
+                color: #ffffff;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <button id="nextDemoBtn" class="next-demo-btn">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <script>
+            document.getElementById('nextDemoBtn').addEventListener('click', function () {
+                window.location.href = './Dashboard 2/index.html';
+            });
+        </script>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="./Dashboard 1/Script.js"></script>
