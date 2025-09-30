@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="Styles.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-bar">
+        <a href="index.html" class="nav-icon home" data-name="Home">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
+            <i class="fas fa-chart-line"></i>
+        </a>
+        <a href="Rooms.html" class="nav-icon rooms" data-name="Rooms">
+            <i class="fas fa-door-open"></i>
+        </a>
+        <a href="Settings.html" class="nav-icon settings" data-name="Settings">
+            <i class="fas fa-cog"></i>
+        </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content">
+        <!-- Left Flex Container -->
+        <div class="left-flex">
+            <div class="top-controls">
+                <div class="mode-toggle" id="modeToggle">
+                    <i class="fas fa-moon"></i>
+                    <span>Dark Mode</span>
+                </div>
+            </div>
+
+            <!-- First Half: Graph and Temperature Range -->
+            <div class="first-half">
+                <!-- Graph Panel -->
+                <div class="panel">
+                    <div class="panel-title">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Weekly Temperature Trend</span>
+                    </div>
+                    <div class="graph-container">
+                        <canvas id="temperatureChart" width="600" height="250"></canvas>
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- Temperature Range Panel -->
+            <div class="panel temp-range">
+                <div class="panel-title">
+                    <i class="fas fa-temperature-high"></i>
+                    <span>Temperature Range</span>
+                </div>
+
+                <div class="range-row">
+                    <div class="range-label">Monday</div>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 80%; background: #FFD700;"></div>
+                    </div>
+                    <div class="range-value">40°C</div>
+                </div>
+
+                <div class="range-row">
+                    <div class="range-label">Tuesday</div>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 60%; background: #42A5F5;"></div>
+                    </div>
+                    <div class="range-value">34°C</div>
+                </div>
+
+                <div class="range-row">
+                    <div class="range-label">Wednesday</div>
+                    <div class="range-bar">
+                        <div class="range-fill" style="width: 70%; background: #FFB6C1;"></div>
+                    </div>
+                    <div class="range-value">37°C</div>
+                </div>
+            </div>
+             <!-- Room Controls -->
+<div class="room-controls">
+    <!-- Living Room -->
+    <div class="room" id="livingRoom">
+        <div class="room-top">
+            <div class="room-info">
+                <div class="room-icon">
+                    <i class="fas fa-couch"></i>
+                </div>
+                <div class="room-name">Living Room</div>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" checked onchange="toggleRoom('livingRoom', this)">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="adjust-section">
+            <button class="adjust-btn" onclick="toggleAdjust('livingRoom')">
+                <i class="fas fa-sliders-h"></i> Adjust
+            </button>
+            <div class="percentage-display" id="livingRoomValue">75%</div>
+        </div>
+        <div class="percentage-controls" id="livingRoomControls">
+            <input type="range" min="10" max="100" value="75" class="percentage-slider"
+                oninput="updatePercentage('livingRoom', this.value)">
+            <div class="percentage-value">75%</div>
+        </div>
+    </div>
+
+    <!-- Bed Room -->
+    <div class="room" id="bedRoom">
+        <div class="room-top">
+            <div class="room-info">
+                <div class="room-icon">
+                    <i class="fas fa-bed"></i>
+                </div>
+                <div class="room-name">Bed Room</div>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" onchange="toggleRoom('bedRoom', this)">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="adjust-section">
+            <button class="adjust-btn" onclick="toggleAdjust('bedRoom')">
+                <i class="fas fa-sliders-h"></i> Adjust
+            </button>
+            <div class="percentage-display" id="bedRoomValue">30%</div>
+        </div>
+        <div class="percentage-controls" id="bedRoomControls">
+            <input type="range" min="10" max="100" value="30" class="percentage-slider"
+                oninput="updatePercentage('bedRoom', this.value)">
+            <div class="percentage-value">30%</div>
+        </div>
+    </div>
+
+    <!-- Kitchen -->
+    <div class="room" id="kitchen">
+        <div class="room-top">
+            <div class="room-info">
+                <div class="room-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="room-name">Kitchen</div>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" checked onchange="toggleRoom('kitchen', this)">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="adjust-section">
+            <button class="adjust-btn" onclick="toggleAdjust('kitchen')">
+                <i class="fas fa-sliders-h"></i> Adjust
+            </button>
+            <div class="percentage-display" id="kitchenValue">90%</div>
+        </div>
+        <div class="percentage-controls" id="kitchenControls">
+            <input type="range" min="10" max="100" value="90" class="percentage-slider"
+                oninput="updatePercentage('kitchen', this.value)">
+            <div class="percentage-value">90%</div>
+        </div>
+    </div>
+
+    <!-- Stairs -->
+    <div class="room" id="stairs">
+        <div class="room-top">
+            <div class="room-info">
+                <div class="room-icon">
+                    <i class="fas fa-stairs"></i>
+                </div>
+                <div class="room-name">Stairs</div>
+            </div>
+            <label class="toggle-switch">
+                <input type="checkbox" onchange="toggleRoom('stairs', this)">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="adjust-section">
+            <button class="adjust-btn" onclick="toggleAdjust('stairs')">
+                <i class="fas fa-sliders-h"></i> Adjust
+            </button>
+            <div class="percentage-display" id="stairsValue">10%</div>
+        </div>
+        <div class="percentage-controls" id="stairsControls">
+            <input type="range" min="10" max="100" value="10" class="percentage-slider"
+                oninput="updatePercentage('stairs', this.value)">
+            <div class="percentage-value">10%</div>
+        </div>
+    </div>
+</div>
+        </div>
+
+        <!-- Right Flex Container (Elegant Dashboard) -->
+        <div class="right-flex">
+            <div class="dashboard-grid">
+                <!-- Square Cards -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(255, 215, 0, 0.1); color: #FFD700;">
+                            <i class="fas fa-thermometer-half"></i>
+                        </div>
+                        <div class="card-title">Temperature</div>
+                    </div>
+                    <div class="card-value">34°C</div>
+                    <div class="card-unit">Living Room</div>
+                    <div class="card-progress">
+                        <div class="card-progress-fill" style="width: 72%; background: #FFD700;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Ideal: 32-45°C</span>
+                        <span>+2.5°C</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(66, 165, 245, 0.1); color: #42A5F5;">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <div class="card-title">Humidity</div>
+                    </div>
+                    <div class="card-value">45%</div>
+                    <div class="card-unit">Optimal Level</div>
+                    <div class="card-progress">
+                        <div class="card-progress-fill" style="width: 45%; background: #42A5F5;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Range: 30-50%</span>
+                        <span>Normal</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(144, 238, 144, 0.1); color: #90EE90;">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="card-title">Air Quality</div>
+                    </div>
+                    <div class="card-value">87%</div>
+                    <div class="card-unit">Excellent</div>
+                    <div class="card-progress">
+                        <div class="card-progress-fill" style="width: 87%; background: #90EE90;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <span>PM2.5: 12μg</span>
+                        <span>Healthy</span>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(255, 182, 193, 0.1); color: #FFB6C1;">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="card-title">Energy Usage</div>
+                    </div>
+                    <div class="card-value">3.2kW</div>
+                    <div class="card-unit">Current Draw</div>
+                    <div class="card-progress">
+                        <div class="card-progress-fill" style="width: 64%; background: #FFB6C1;"></div>
+                    </div>
+                    <div class="card-footer">
+                        <span>Today: 12.8kWh</span>
+                        <span>-5%</span>
+                    </div>
+                </div>
+
+                <!-- Notification Card -->
+                <div class="dashboard-card notification-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(255, 215, 0, 0.1); color: #FFD700;">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="card-title">Notifications</div>
+                    </div>
+                    <div class="device-list">
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-temperature-high"></i>
+                            </div>
+                            <div class="notification-content">
+                                <p>Living Room temperature is optimal</p>
+                                <span class="notification-time">2 min ago</span>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon">
+                                <i class="fas fa-door-closed"></i>
+                            </div>
+                            <div class="notification-content">
+                                <p>Front door was unlocked</p>
+                                <span class="notification-time">15 min ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Weather Card -->
+                <div class="dashboard-card weather-card">
+                    <div class="card-header">
+                        <div class="card-icon" style="background: rgba(66, 165, 245, 0.1); color: #42A5F5;">
+                            <i class="fas fa-cloud-sun"></i>
+                        </div>
+                        <div class="card-title">Weather</div>
+                    </div>
+                    <div class="weather-display">
+                        <div class="weather-temp">32°C</div>
+                        <div class="weather-icon">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                    </div>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <i class="fas fa-wind"></i>
+                            <span>5 mph SW</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-tint"></i>
+                            <span>45% Humidity</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-compress-alt"></i>
+                            <span>30.15 inHg</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-eye"></i>
+                            <span>10 mi Visibility</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="next-demo-container">
+        <style>
+            .next-demo-btn {
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                padding: 12px 15px;
+                background-color: rgb(255, 255, 255, 0.4);
+                color: #3b82f6;
+                border: 2px solid #3b82f6;
+                border-radius: 50%;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                z-index: 1000;
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .next-demo-btn:hover {
+                background-color: #3b82f6;
+                color: #ffffff;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            }
+        </style>
+        <button id="nextDemoBtn" class="next-demo-btn">
+            <i class="fa-solid fa-arrow-right"></i>
+        </button>
+        <script>
+            document.getElementById('nextDemoBtn').addEventListener('click', function () {
+                window.location.href = '../Dashboard 2/index.html';
+            });
+        </script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="Script.js"></script>
+</body>
+
+</html>

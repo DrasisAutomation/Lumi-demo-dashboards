@@ -5,345 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Home Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./Dashboard 1/Styles.css">
+    <link rel="stylesheet" href="./Dashboard 4/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="nav-bar">
-        <a href="./index.html" class="nav-icon home" data-name="Home">
-            <i class="fas fa-home"></i>
-        </a>
-        <a href="./Dashboard 1/dashboard.html" class="nav-icon dashboard" data-name="Dashboard">
-            <i class="fas fa-chart-line"></i>
-        </a>
-        <a href="./Dashboard 1/Rooms.html" class="nav-icon rooms" data-name="Rooms">
-            <i class="fas fa-door-open"></i>
-        </a>
-        <a href="./Dashboard 1/Settings.html" class="nav-icon settings" data-name="Settings">
-            <i class="fas fa-cog"></i>
-        </a>
-    </nav>
 
-    <!-- Main Content -->
-    <main class="content">
-        <!-- Left Flex Container -->
-        <div class="left-flex">
-            <div class="top-controls">
-                <div class="mode-toggle" id="modeToggle">
-                    <i class="fas fa-moon"></i>
-                    <span>Dark Mode</span>
-                </div>
-            </div>
-
-            <!-- First Half: Graph and Temperature Range -->
-            <div class="first-half">
-                <!-- Graph Panel -->
-                <div class="panel">
-                    <div class="panel-title">
-                        <i class="fas fa-chart-line"></i>
-                        <span>Weekly Temperature Trend</span>
-                    </div>
-                    <div class="graph-container">
-                        <canvas id="temperatureChart" width="600" height="250"></canvas>
-                    </div>
-                </div>
-
-
-            </div>
-            <!-- Temperature Range Panel -->
-            <div class="panel temp-range">
-                <div class="panel-title">
-                    <i class="fas fa-temperature-high"></i>
-                    <span>Temperature Range</span>
-                </div>
-
-                <div class="range-row">
-                    <div class="range-label">Monday</div>
-                    <div class="range-bar">
-                        <div class="range-fill" style="width: 80%; background: #FFD700;"></div>
-                    </div>
-                    <div class="range-value">40°C</div>
-                </div>
-
-                <div class="range-row">
-                    <div class="range-label">Tuesday</div>
-                    <div class="range-bar">
-                        <div class="range-fill" style="width: 60%; background: #42A5F5;"></div>
-                    </div>
-                    <div class="range-value">34°C</div>
-                </div>
-
-                <div class="range-row">
-                    <div class="range-label">Wednesday</div>
-                    <div class="range-bar">
-                        <div class="range-fill" style="width: 70%; background: #FFB6C1;"></div>
-                    </div>
-                    <div class="range-value">37°C</div>
-                </div>
-            </div>
-             <!-- Room Controls -->
-<div class="room-controls">
-    <!-- Living Room -->
-    <div class="room" id="livingRoom">
-        <div class="room-top">
-            <div class="room-info">
-                <div class="room-icon">
-                    <i class="fas fa-couch"></i>
-                </div>
-                <div class="room-name">Living Room</div>
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" checked onchange="toggleRoom('livingRoom', this)">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="adjust-section">
-            <button class="adjust-btn" onclick="toggleAdjust('livingRoom')">
-                <i class="fas fa-sliders-h"></i> Adjust
-            </button>
-            <div class="percentage-display" id="livingRoomValue">75%</div>
-        </div>
-        <div class="percentage-controls" id="livingRoomControls">
-            <input type="range" min="10" max="100" value="75" class="percentage-slider"
-                oninput="updatePercentage('livingRoom', this.value)">
-            <div class="percentage-value">75%</div>
-        </div>
-    </div>
-
-    <!-- Bed Room -->
-    <div class="room" id="bedRoom">
-        <div class="room-top">
-            <div class="room-info">
-                <div class="room-icon">
-                    <i class="fas fa-bed"></i>
-                </div>
-                <div class="room-name">Bed Room</div>
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" onchange="toggleRoom('bedRoom', this)">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="adjust-section">
-            <button class="adjust-btn" onclick="toggleAdjust('bedRoom')">
-                <i class="fas fa-sliders-h"></i> Adjust
-            </button>
-            <div class="percentage-display" id="bedRoomValue">30%</div>
-        </div>
-        <div class="percentage-controls" id="bedRoomControls">
-            <input type="range" min="10" max="100" value="30" class="percentage-slider"
-                oninput="updatePercentage('bedRoom', this.value)">
-            <div class="percentage-value">30%</div>
-        </div>
-    </div>
-
-    <!-- Kitchen -->
-    <div class="room" id="kitchen">
-        <div class="room-top">
-            <div class="room-info">
-                <div class="room-icon">
-                    <i class="fas fa-utensils"></i>
-                </div>
-                <div class="room-name">Kitchen</div>
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" checked onchange="toggleRoom('kitchen', this)">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="adjust-section">
-            <button class="adjust-btn" onclick="toggleAdjust('kitchen')">
-                <i class="fas fa-sliders-h"></i> Adjust
-            </button>
-            <div class="percentage-display" id="kitchenValue">90%</div>
-        </div>
-        <div class="percentage-controls" id="kitchenControls">
-            <input type="range" min="10" max="100" value="90" class="percentage-slider"
-                oninput="updatePercentage('kitchen', this.value)">
-            <div class="percentage-value">90%</div>
-        </div>
-    </div>
-
-    <!-- Stairs -->
-    <div class="room" id="stairs">
-        <div class="room-top">
-            <div class="room-info">
-                <div class="room-icon">
-                    <i class="fas fa-stairs"></i>
-                </div>
-                <div class="room-name">Stairs</div>
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" onchange="toggleRoom('stairs', this)">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="adjust-section">
-            <button class="adjust-btn" onclick="toggleAdjust('stairs')">
-                <i class="fas fa-sliders-h"></i> Adjust
-            </button>
-            <div class="percentage-display" id="stairsValue">10%</div>
-        </div>
-        <div class="percentage-controls" id="stairsControls">
-            <input type="range" min="10" max="100" value="10" class="percentage-slider"
-                oninput="updatePercentage('stairs', this.value)">
-            <div class="percentage-value">10%</div>
-        </div>
-    </div>
-</div>
-        </div>
-
-        <!-- Right Flex Container (Elegant Dashboard) -->
-        <div class="right-flex">
-            <div class="dashboard-grid">
-                <!-- Square Cards -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: rgba(255, 215, 0, 0.1); color: #FFD700;">
-                            <i class="fas fa-thermometer-half"></i>
-                        </div>
-                        <div class="card-title">Temperature</div>
-                    </div>
-                    <div class="card-value">34°C</div>
-                    <div class="card-unit">Living Room</div>
-                    <div class="card-progress">
-                        <div class="card-progress-fill" style="width: 72%; background: #FFD700;"></div>
-                    </div>
-                    <div class="card-footer">
-                        <span>Ideal: 32-45°C</span>
-                        <span>+2.5°C</span>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: rgba(66, 165, 245, 0.1); color: #42A5F5;">
-                            <i class="fas fa-tint"></i>
-                        </div>
-                        <div class="card-title">Humidity</div>
-                    </div>
-                    <div class="card-value">45%</div>
-                    <div class="card-unit">Optimal Level</div>
-                    <div class="card-progress">
-                        <div class="card-progress-fill" style="width: 45%; background: #42A5F5;"></div>
-                    </div>
-                    <div class="card-footer">
-                        <span>Range: 30-50%</span>
-                        <span>Normal</span>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: rgba(144, 238, 144, 0.1); color: #90EE90;">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                        <div class="card-title">Air Quality</div>
-                    </div>
-                    <div class="card-value">87%</div>
-                    <div class="card-unit">Excellent</div>
-                    <div class="card-progress">
-                        <div class="card-progress-fill" style="width: 87%; background: #90EE90;"></div>
-                    </div>
-                    <div class="card-footer">
-                        <span>PM2.5: 12μg</span>
-                        <span>Healthy</span>
-                    </div>
-                </div>
-
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: rgba(255, 182, 193, 0.1); color: #FFB6C1;">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <div class="card-title">Energy Usage</div>
-                    </div>
-                    <div class="card-value">3.2kW</div>
-                    <div class="card-unit">Current Draw</div>
-                    <div class="card-progress">
-                        <div class="card-progress-fill" style="width: 64%; background: #FFB6C1;"></div>
-                    </div>
-                    <div class="card-footer">
-                        <span>Today: 12.8kWh</span>
-                        <span>-5%</span>
-                    </div>
-                </div>
-
-                <!-- Notification Card -->
-                <div class="dashboard-card notification-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: rgba(255, 215, 0, 0.1); color: #FFD700;">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <div class="card-title">Notifications</div>
-                    </div>
-                    <div class="device-list">
-                        <div class="notification-item">
-                            <div class="notification-icon">
-                                <i class="fas fa-temperature-high"></i>
-                            </div>
-                            <div class="notification-content">
-                                <p>Living Room temperature is optimal</p>
-                                <span class="notification-time">2 min ago</span>
-                            </div>
-                        </div>
-                        <div class="notification-item">
-                            <div class="notification-icon">
-                                <i class="fas fa-door-closed"></i>
-                            </div>
-                            <div class="notification-content">
-                                <p>Front door was unlocked</p>
-                                <span class="notification-time">15 min ago</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Weather Card -->
-                <div class="dashboard-card weather-card">
-                    <div class="card-header">
-                        <div class="card-icon" style="background: rgba(66, 165, 245, 0.1); color: #42A5F5;">
-                            <i class="fas fa-cloud-sun"></i>
-                        </div>
-                        <div class="card-title">Weather</div>
-                    </div>
-                    <div class="weather-display">
-                        <div class="weather-temp">32°C</div>
-                        <div class="weather-icon">
-                            <i class="fas fa-sun"></i>
-                        </div>
-                    </div>
-                    <div class="weather-details">
-                        <div class="weather-detail">
-                            <i class="fas fa-wind"></i>
-                            <span>5 mph SW</span>
-                        </div>
-                        <div class="weather-detail">
-                            <i class="fas fa-tint"></i>
-                            <span>45% Humidity</span>
-                        </div>
-                        <div class="weather-detail">
-                            <i class="fas fa-compress-alt"></i>
-                            <span>30.15 inHg</span>
-                        </div>
-                        <div class="weather-detail">
-                            <i class="fas fa-eye"></i>
-                            <span>10 mi Visibility</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
     <div class="next-demo-container">
         <style>
             .next-demo-btn {
                 position: fixed;
                 bottom: 20px;
                 right: 20px;
-                padding: 12px 15px;
+                padding: 12px;
                 background-color: rgb(255, 255, 255, 0.4);
                 color: #3b82f6;
                 border: 2px solid #3b82f6;
@@ -367,13 +41,1187 @@
         </button>
         <script>
             document.getElementById('nextDemoBtn').addEventListener('click', function () {
-                window.location.href = './Dashboard 2/index.html';
+                window.location.href = './Dashboard 1/index.html';
             });
         </script>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="./Dashboard 1/Script.js"></script>
+    <!-- Top Navigation -->
+    <div class="top-nav">
+        <div class="nav-section">
+            <!-- menu keyword button for hamburger -->
+            <button id="menuButton" class="hamburger-btn" aria-label="Open menu">menu</button>
+            <button class="nav-toggle" id="systemToggle">
+                <div class="slider"></div>
+            </button>
+            <div class="nav-tabs">
+                <button class="nav-tab active" data-view="overview">Overview</button>
+                <button class="nav-tab" data-view="rooms">Rooms</button>
+                <button class="nav-tab" data-view="energy">Energy</button>
+            </div>
+        </div>
+
+        <div class="nav-section">
+            <div class="dropdown sethide">
+                <button class="dropdown-btn" id="settingsDropdown">
+                    ⚙️ Settings <span>▼</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="dashboard.showSettings()">System Settings</div>
+                    <div class="dropdown-item" onclick="dashboard.showHistory()">Activity History</div>
+                    <div class="dropdown-item" onclick="dashboard.showDevices()">Device Management</div>
+                    <div class="dropdown-item" onclick="dashboard.showSecurity()">Security</div>
+                </div>
+            </div>
+            <div class="dropdown sethide">
+                <button class="dropdown-btn" id="actionsDropdown">
+                    ⚡ Actions <span>▼</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-item" onclick="dashboard.quickAction('allLightsOn')">All Lights On</div>
+                    <div class="dropdown-item" onclick="dashboard.quickAction('allLightsOff')">All Lights Off</div>
+                    <div class="dropdown-item" onclick="dashboard.quickAction('nightMode')">Night Mode</div>
+                    <div class="dropdown-item" onclick="dashboard.quickAction('awayMode')">Away Mode</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hamburger Side Menu Drawer -->
+    <nav id="hamburgerMenu" class="hamburger-menu" aria-label="Main">
+        <div class="hamburger-header">
+            <span>Menu</span>
+            <button id="closeMenuBtn" class="hamburger-close" aria-label="Close menu">×</button>
+        </div>
+        <ul class="hamburger-list">
+            <li><button class="menu-item" data-menu="overview">Overview</button></li>
+            <li><button class="menu-item" data-menu="rooms">Rooms</button></li>
+            <li><button class="menu-item" data-menu="curtains">Curtains</button></li>
+            <li><button class="menu-item" data-menu="air">Air Conditioner</button></li>
+            <li><button class="menu-item" data-menu="lights">Lights</button></li>
+            <li><button class="menu-item" data-menu="quick">Quick Actions</button></li>
+            <li><button class="menu-item" data-menu="camera">Camera</button></li>
+            <li><button class="menu-item" data-menu="scenes">Scenes</button></li>
+            <li><button class="menu-item" data-menu="pa">PA System</button></li>
+            <li><button class="menu-item" data-menu="music">Music</button></li>
+            <li><button class="menu-item" data-menu="alarm">Alarm</button></li>
+            <li><button class="menu-item" data-menu="lock">Lock</button></li>
+            <li><button class="menu-item" data-menu="energy">Energy</button></li>
+        </ul>
+    </nav>
+
+    <!-- Zoom Controls -->
+    <div class="zoom-controls">
+        <button class="zoom-btn" id="zoomIn">+</button>
+        <div class="zoom-info" id="zoomInfo" style="transform: translateX(-13%);">100%</div>
+        <button class="zoom-btn" id="zoomOut">−</button>
+        <button class="zoom-btn" id="resetZoom">⌂</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-area">
+        <div class="scale-wrapper">
+            <div class="floor-plan-container zoom-1" id="floorPlanContainer">
+                <div class="floor-plan-wrapper" id="floorPlanWrapper">
+                    <img src="https://ik.imagekit.io/jqubn4ob4/one-bedroom.5b29dba7.jpg?updatedAt=1758692316515"
+                        alt="Smart Home Floor Plan" class="floor-plan" id="floorPlan">
+
+                    <!-- Room Control Buttons -->
+                    <!-- Living Room - Fix the ID -->
+                    <div class="room-button" style="top: 70%; left: 36%;" data-room="living-room">
+                        <span>Living Room</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="living-status"></div>
+                            <span>24°C</span>
+                        </div>
+                        <div class="light-indicator" id="living-room-light" style="display: none;">💡</div>
+                    </div>
+
+                    <!-- Bedroom - Fix the ID to match the room ID -->
+                    <div class="room-button" style="top: 30%; left: 72%;" data-room="master-bedroom">
+                        <span>Bedroom</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="master-bedroom-status"></div>
+                            <span>22°C</span>
+                        </div>
+                        <div class="light-indicator" id="master-bedroom-light" style="display: none;">💡</div>
+                    </div>
+
+                    <!-- Kitchen - Already correct -->
+                    <div class="room-button" style="top: 25%; left: 32%;" data-room="kitchen">
+                        <span>Kitchen</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="kitchen-status"></div>
+                        </div>
+                        <div class="light-indicator" id="kitchen-light">💡</div>
+                    </div>
+
+                    <!-- Bathroom - Fix the ID -->
+                    <div class="room-button" style="top: 22.5%; left: 52%;" data-room="bathroom">
+                        <span>Bathroom</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="bathroom-status"></div>
+                        </div>
+                        <div class="light-indicator" id="bathroom-light" style="display: none;">💡</div>
+                    </div>
+
+                    <!-- Garage - Already correct -->
+                    <div class="room-button" style="top: 77%; left: 13%;" data-room="garage">
+                        <span>Garage</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="garage-status"></div>
+                        </div>
+                        <div class="light-indicator" id="garage-light" style="display: none;">💡</div>
+                    </div>
+
+                    <!-- Balcony - Fix the ID -->
+                    <div class="room-button" style="top: 48.6%; left: 15%;" data-room="balcony">
+                        <span>Balcony</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="balcony-status"></div>
+                        </div>
+                        <div class="light-indicator" id="balcony-light" style="display: none;">💡</div>
+                    </div>
+
+                    <!-- Dining - Already correct -->
+                    <div class="room-button" style="top: 49.7%; left: 35%;" data-room="dining">
+                        <span>Dining</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="dining-status"></div>
+                            <span>23°C</span>
+                        </div>
+                        <div class="light-indicator" id="dining-light">💡</div>
+                    </div>
+
+                    <!-- Laundry - Fix the ID -->
+                    <div class="room-button" style="top: 67.9%; left: 75.6%;" data-room="laundry">
+                        <span>Laundry</span>
+                        <div class="room-status">
+                            <div class="status-dot off" id="laundry-status"></div>
+                            <span>24°C</span>
+                        </div>
+                        <div class="light-indicator" id="laundry-light" style="display: none;">💡</div>
+                    </div>
+
+                    <!-- Study - Already correct -->
+                    <div class="room-button" style="top: 49.7%; left: 51.5%;" data-room="study">
+                        <span>Study</span>
+                        <div class="room-status">
+                            <div class="status-dot" id="study-status"></div>
+                            <span>21°C</span>
+                        </div>
+                        <div class="light-indicator" id="study-light">💡</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Side Panel -->
+    <div class="side-panel" id="sidePanel">
+        <div class="panel-header">
+            <div class="panel-title" id="panelTitle">Room Controls</div>
+            <button class="close-btn" id="closePanelBtn">×</button>
+        </div>
+        <div class="panel-content" id="panelContent">
+            <!-- Dynamic content will be loaded here -->
+        </div>
+    </div>
+    <!-- Left Side Panel -->
+    <div class="side-panel left" id="leftPanel">
+        <div class="panel-header">
+            <div class="panel-title" id="leftPanelTitle">Overview</div>
+            <button class="close-btn" id="closeLeftPanelBtn">×</button>
+        </div>
+        <div class="panel-content" id="leftPanelContent">
+            <!-- Dynamic content will load here -->
+        </div>
+    </div>
+    <div class="music-player" id="musicPlayer" style="display: none;">
+        <div class="player-header">
+            <h3>🎵 Music Player</h3>
+            <button class="close-player" id="closePlayerBtn">×</button>
+        </div>
+        <div class="player-content">
+            <div class="now-playing">
+                <div class="album-art">
+                    <img id="currentAlbumArt"
+                        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect width='200' height='200' fill='%234CAF50'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='24' fill='white'%3EMusic%3C/text%3E%3C/svg%3E"
+                        alt="Album Art">
+                </div>
+                <div class="track-info">
+                    <h4 id="currentTrack">Select a track to play</h4>
+                    <p id="currentArtist">Artist</p>
+                    <p id="currentAlbum">Album</p>
+                </div>
+            </div>
+            <div class="player-controls">
+                <div class="progress-container">
+                    <span id="currentTime">0:00</span>
+                    <input type="range" id="progressBar" min="0" max="100" value="0" class="progress-slider">
+                    <span id="duration">0:00</span>
+                </div>
+                <div class="control-buttons">
+                    <button id="prevBtn" class="control-btn">⏮</button>
+                    <button id="playPauseBtn" class="control-btn play-pause">▶</button>
+                    <button id="nextBtn" class="control-btn">⏭</button>
+                </div>
+                <div class="volume-control">
+                    <span>🔊</span>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="50" class="volume-slider">
+                    <span id="volumeValue">50%</span>
+                </div>
+            </div>
+            <div class="playlist-section">
+                <h4>Playlist</h4>
+                <div class="playlist" id="playlist">
+                    <!-- Playlist items will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this to your index.html file, inside the body tag -->
+    <div class="pa-system" id="paSystem" style="display: none;">
+        <div class="pa-header">
+            <h3>📢 Internet PA System</h3>
+            <button class="close-pa" id="closePaBtn">×</button>
+        </div>
+        <div class="pa-content">
+            <div class="recording-section">
+                <div class="recording-controls">
+                    <button class="record-btn" id="recordBtn">
+                        <span class="record-icon">●</span>
+                        <span class="record-text">Record Message</span>
+                    </button>
+                    <div class="recording-visualizer" id="recordingVisualizer" style="display: none;">
+                        <div class="visualizer-bars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                        <span class="recording-text">Recording...</span>
+                        <span class="recording-timer" id="recordingTimer">0:05</span>
+                    </div>
+                    <button class="play-btn" id="playBtn" disabled>
+                        <span class="play-icon">▶</span>
+                        <span class="play-text">Play Recording</span>
+                    </button>
+                </div>
+
+                <div class="recording-preview" id="recordingPreview" style="display: none;">
+                    <h4>Recording Preview</h4>
+                    <div class="preview-waveform">
+                        <div class="waveform-container">
+                            <canvas id="waveformCanvas" width="300" height="60"></canvas>
+                        </div>
+                        <div class="preview-info">
+                            <span>Duration: <span id="recordingDuration">5s</span></span>
+                            <button class="delete-btn" id="deleteRecording">🗑️</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="room-selection">
+                <h4>Select Rooms to Broadcast</h4>
+                <div class="room-buttons" id="paRooms">
+                    <!-- Room buttons will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="broadcast-controls">
+                <button class="broadcast-btn" id="broadcastBtn" disabled>
+                    <span class="broadcast-icon">📢</span>
+                    <span class="broadcast-text">Broadcast to Selected Rooms</span>
+                </button>
+            </div>
+
+            <div class="pa-status">
+                <h4>System Status</h4>
+                <div class="status-grid" id="paStatusGrid">
+                    <!-- Status items will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="pa-history">
+                <h4>Broadcast History</h4>
+                <div class="history-list" id="paHistory">
+                    <!-- History will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this to your index.html file, inside the body tag -->
+    <div class="alarm-system" id="alarmSystem" style="display: none;">
+        <div class="alarm-header">
+            <h3>🚨 Security Alarm System</h3>
+            <button class="close-alarm" id="closeAlarmBtn">×</button>
+        </div>
+        <div class="alarm-content">
+            <div class="alarm-status">
+                <div class="status-indicator" id="alarmStatusIndicator">
+                    <div class="status-dot"></div>
+                    <span id="alarmStatusText">System Disarmed</span>
+                </div>
+                <div class="alarm-mode" id="alarmMode">
+                    <span>Mode: Home</span>
+                </div>
+            </div>
+
+            <div class="room-selection">
+                <h4>Select Rooms to Monitor</h4>
+                <div class="room-checkboxes" id="alarmRooms">
+                    <!-- Room checkboxes will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="keypad-section">
+                <h4>Enter Security Code</h4>
+                <div class="code-display">
+                    <input type="password" id="alarmCodeInput" maxlength="4" placeholder="----" readonly>
+                </div>
+                <div class="keypad">
+                    <button class="keypad-btn" data-key="1">1</button>
+                    <button class="keypad-btn" data-key="2">2</button>
+                    <button class="keypad-btn" data-key="3">3</button>
+                    <button class="keypad-btn" data-key="4">4</button>
+                    <button class="keypad-btn" data-key="5">5</button>
+                    <button class="keypad-btn" data-key="6">6</button>
+                    <button class="keypad-btn" data-key="7">7</button>
+                    <button class="keypad-btn" data-key="8">8</button>
+                    <button class="keypad-btn" data-key="9">9</button>
+                    <button class="keypad-btn clear" id="clearCode">C</button>
+                    <button class="keypad-btn" data-key="0">0</button>
+                    <button class="keypad-btn enter" id="enterCode">↵</button>
+                </div>
+            </div>
+
+            <div class="alarm-controls">
+                <button class="alarm-btn arm-home" id="armHomeBtn">Arm Home</button>
+                <button class="alarm-btn arm-away" id="armAwayBtn">Arm Away</button>
+                <button class="alarm-btn disarm" id="disarmBtn">Disarm</button>
+            </div>
+            <!-- 
+            <div class="alarm-history">
+                <h4>Recent Activity</h4>
+                <div class="history-list" id="alarmHistory">
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+
+    <!-- Add this to your index.html file, inside the body tag -->
+    <div class="monitoring-system" id="monitoringSystem" style="display: none;">
+        <div class="monitoring-header">
+            <h3>📹 Security Monitoring</h3>
+            <button class="close-monitoring" id="closeMonitoringBtn">×</button>
+        </div>
+        <div class="monitoring-content">
+            <div class="monitoring-grid">
+                <!-- Living Room Camera -->
+                <div class="camera-feed">
+                    <div class="camera-header">
+                        <span class="camera-icon">🛋️</span>
+                        <span class="camera-name">Living Room</span>
+                        <span class="camera-status online">● LIVE</span>
+                    </div>
+                    <div class="camera-view">
+                        <img src="https://images.livspace-cdn.com/w:3840/plain/https://d3gq2merok8n5r.cloudfront.net/abhinav/design-ideas-thumbnails-1628773921-7vSz1/jas-2025-1752131881-hKij1/living-1752132347-2IfZe/05-1757316619-tjrPY.jpg"
+                            alt="Living Room Camera Feed" class="camera-image">
+                        <div class="camera-overlay">
+                            <div class="timestamp">15:32:45</div>
+                            <div class="recording-indicator">
+                                <div class="rec-dot"></div>
+                                <span>REC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('living-room', 'zoom-in')">🔍
+                            +</button>
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('living-room', 'zoom-out')">🔍
+                            -</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('living-room', 'snapshot')">📸</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('living-room', 'record')">●</button>
+                    </div>
+                </div>
+
+                <!-- Terrace Camera -->
+                <div class="camera-feed">
+                    <div class="camera-header">
+                        <span class="camera-icon">🌅</span>
+                        <span class="camera-name">Terrace</span>
+                        <span class="camera-status online">● LIVE</span>
+                    </div>
+                    <div class="camera-view">
+                        <img src="https://verdeprofilo.com/wp-content/uploads/2024/05/Milano_casa_HDR_3-1.jpg"
+                            alt="Terrace Camera Feed" class="camera-image">
+                        <div class="camera-overlay">
+                            <div class="timestamp">15:32:42</div>
+                            <div class="recording-indicator">
+                                <div class="rec-dot"></div>
+                                <span>REC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('terrace', 'zoom-in')">🔍
+                            +</button>
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('terrace', 'zoom-out')">🔍
+                            -</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('terrace', 'snapshot')">📸</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('terrace', 'record')">●</button>
+                    </div>
+                </div>
+
+                <!-- Parking Camera -->
+                <div class="camera-feed">
+                    <div class="camera-header">
+                        <span class="camera-icon">🚗</span>
+                        <span class="camera-name">Parking</span>
+                        <span class="camera-status online">● LIVE</span>
+                    </div>
+                    <div class="camera-view">
+                        <img src="https://akaatent.com/wp-content/uploads/2022/09/corrugated-parking-1.jpg"
+                            alt="Parking Camera Feed" class="camera-image">
+                        <div class="camera-overlay">
+                            <div class="timestamp">15:32:40</div>
+                            <div class="recording-indicator">
+                                <div class="rec-dot"></div>
+                                <span>REC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('parking', 'zoom-in')">🔍
+                            +</button>
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('parking', 'zoom-out')">🔍
+                            -</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('parking', 'snapshot')">📸</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('parking', 'record')">●</button>
+                    </div>
+                </div>
+
+                <!-- Garden Camera -->
+                <div class="camera-feed">
+                    <div class="camera-header">
+                        <span class="camera-icon">🌳</span>
+                        <span class="camera-name">Garden</span>
+                        <span class="camera-status online">● LIVE</span>
+                    </div>
+                    <div class="camera-view">
+                        <img src='https://www.chennaifirst.in/wp-content/uploads/2015/03/VegGardenCF22mar2015.jpg'
+                            alt="Garden Camera Feed" class="camera-image">
+                        <div class="camera-overlay">
+                            <div class="timestamp">15:32:38</div>
+                            <div class="recording-indicator">
+                                <div class="rec-dot"></div>
+                                <span>REC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="camera-controls">
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('garden', 'zoom-in')">🔍
+                            +</button>
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('garden', 'zoom-out')">🔍
+                            -</button>
+                        <button class="cam-control-btn"
+                            onclick="dashboard.controlCamera('garden', 'snapshot')">📸</button>
+                        <button class="cam-control-btn" onclick="dashboard.controlCamera('garden', 'record')">●</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="monitoring-controls">
+                <div class="control-section">
+                    <h4>System Controls</h4>
+                    <div class="control-buttons">
+                        <button class="system-btn" onclick="dashboard.controlAllCameras('record')">
+                            <span class="btn-icon">●</span>
+                            <span>Record All</span>
+                        </button>
+                        <button class="system-btn" onclick="dashboard.controlAllCameras('snapshot')">
+                            <span class="btn-icon">📸</span>
+                            <span>Snapshot All</span>
+                        </button>
+                        <button class="system-btn" onclick="dashboard.controlAllCameras('toggle-nightvision')">
+                            <span class="btn-icon">🌙</span>
+                            <span>Night Vision</span>
+                        </button>
+                        <button class="system-btn" onclick="dashboard.controlAllCameras('motion-alerts')">
+                            <span class="btn-icon">🚨</span>
+                            <span>Motion Alerts</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="status-section">
+                    <h4>System Status</h4>
+                    <div class="status-items">
+                        <div class="status-item">
+                            <span class="status-dot online"></span>
+                            <span>All Cameras: Online</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot recording"></span>
+                            <span>Recording: Active</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot storage"></span>
+                            <span>Storage: 78% Available</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-dot network"></span>
+                            <span>Network: Stable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this to your index.html file, inside the body tag -->
+    <div class="ac-system" id="acSystem" style="display: none;">
+        <div class="ac-header">
+            <h3>❄️ AC Control System</h3>
+            <button class="close-ac" id="closeAcBtn">×</button>
+        </div>
+        <div class="ac-content">
+            <div class="ac-status">
+                <div class="status-indicator">
+                    <div class="status-dot" id="acStatusDot"></div>
+                    <span id="acStatusText">System Offline</span>
+                </div>
+                <div class="power-control">
+                    <button class="power-btn" id="acPowerBtn">
+                        <svg class="power-icon" viewBox="0 0 24 24">
+                            <path d="M18.36 6.64a9 9 0 1 1-12.73 0" />
+                            <line x1="12" y1="2" x2="12" y2="12" />
+                        </svg>
+                        <span>POWER</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="room-selection">
+                <h4>Select Room</h4>
+                <div class="room-tabs" id="acRoomTabs">
+                    <!-- Room tabs will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="ac-controls">
+                <div class="thermostat-section">
+                    <div class="thermostat-header">
+                        <div class="thermostat-title" id="currentRoomName">Living Room</div>
+                        <div class="menu-dots">⋯</div>
+                    </div>
+
+                    <div class="thermostat-dial">
+                        <!-- <div class="dial-track"></div>
+                        <div class="dial-progress" id="dialProgress"></div>
+                        <div class="dial-handle" id="dialHandle"></div> -->
+                        <div class="dial-inner">
+                            <div class="mode-label" id="acModeLabel">COOLING</div>
+                            <div class="current-temp">
+                                <span id="currentTemp">22</span>
+                                <span class="temp-unit">°C</span>
+                            </div>
+                            <div class="target-temp" id="targetTemp">Target: 22°C</div>
+                        </div>
+                    </div>
+
+                    <div class="temp-controls">
+                        <button class="temp-control-btn" id="tempDownBtn">−</button>
+                        <button class="temp-control-btn" id="tempUpBtn">+</button>
+                    </div>
+                </div>
+
+                <div class="ac-modes">
+                    <h4>AC Mode</h4>
+                    <div class="mode-buttons">
+                        <button class="mode-btn active" data-mode="cool">
+                            <span class="mode-icon">❄️</span>
+                            <span>Cool</span>
+                        </button>
+                        <button class="mode-btn" data-mode="heat">
+                            <span class="mode-icon">🔥</span>
+                            <span>Heat</span>
+                        </button>
+                        <button class="mode-btn" data-mode="fan">
+                            <span class="mode-icon">💨</span>
+                            <span>Fan</span>
+                        </button>
+                        <button class="mode-btn" data-mode="auto">
+                            <span class="mode-icon">🔄</span>
+                            <span>Auto</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="temp-presets">
+                    <h4>Quick Temperature</h4>
+                    <div class="preset-buttons">
+                        <button class="preset-btn" data-temp="18">18°C</button>
+                        <button class="preset-btn" data-temp="20">20°C</button>
+                        <button class="preset-btn active" data-temp="22">22°C</button>
+                        <button class="preset-btn" data-temp="24">24°C</button>
+                        <button class="preset-btn" data-temp="26">26°C</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ac-history">
+                <h4>Recent Activity</h4>
+                <div class="history-list" id="acHistory">
+                    <!-- History will be dynamically added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Add this to your index.html file -->
+    <div class="lighting-system" id="lightingSystem" style="display: none;">
+        <div class="lighting-header">
+            <h3>💡 Smart Lighting</h3>
+            <button class="close-lighting" id="closeLightingBtn">×</button>
+        </div>
+        <div class="lighting-content">
+
+
+            <!-- Dimmable Lights Tab -->
+            <div class="tab-content active" id="dimmable-tab">
+                <div class="room-selection">
+                    <h4>Select Room</h4>
+                    <div class="room-tabs" id="dimmableRooms">
+                        <!-- Room tabs will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="lights-container" id="dimmableLights">
+                    <!-- Dimmable lights will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- RGB Lights Tab -->
+            <div class="tab-content" id="rgb-tab">
+                <div class="room-selection">
+                    <h4>Select Room</h4>
+                    <div class="room-tabs" id="rgbRooms">
+                        <!-- Room tabs will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="rgb-controls">
+                    <div class="color-picker-section">
+                        <h4>Color Selection</h4>
+                        <div class="color-palette">
+                            <div class="color-swatch" data-color="#ff3b30" style="background: #ff3b30;"></div>
+                            <div class="color-swatch" data-color="#ff9500" style="background: #ff9500;"></div>
+                            <div class="color-swatch" data-color="#ffcc00" style="background: #ffcc00;"></div>
+                            <div class="color-swatch" data-color="#4cd964" style="background: #4cd964;"></div>
+                            <div class="color-swatch" data-color="#5ac8fa" style="background: #5ac8fa;"></div>
+                            <div class="color-swatch" data-color="#007aff" style="background: #007aff;"></div>
+                            <div class="color-swatch" data-color="#5856d6" style="background: #5856d6;"></div>
+                            <div class="color-swatch" data-color="#ff2d55" style="background: #ff2d55;"></div>
+                        </div>
+                        <input type="color" id="customColor" value="#ffcc00" class="custom-color-picker">
+                    </div>
+                </div>
+
+                <div class="rgb-lights-container" id="rgbLights">
+                    <!-- RGB lights will be dynamically added here -->
+                </div>
+            </div>
+
+            <!-- Scenes Tab -->
+            <div class="tab-content" id="scenes-tab">
+                <div class="room-selection">
+                    <h4>Select Room</h4>
+                    <div class="room-tabs" id="sceneRooms">
+                        <!-- Room tabs will be dynamically added here -->
+                    </div>
+                </div>
+
+                <div class="scenes-grid">
+                    <div class="scene-card" data-scene="movie">
+                        <div class="scene-icon">🎬</div>
+                        <div class="scene-name">Movie Night</div>
+                        <div class="scene-desc">Dimmed warm lights</div>
+                    </div>
+                    <div class="scene-card" data-scene="candle">
+                        <div class="scene-icon">🕯️</div>
+                        <div class="scene-name">Candle Light</div>
+                        <div class="scene-desc">Soft orange glow</div>
+                    </div>
+                    <div class="scene-card" data-scene="party">
+                        <div class="scene-icon">🎉</div>
+                        <div class="scene-name">Party Mode</div>
+                        <div class="scene-desc">Colorful & bright</div>
+                    </div>
+                    <div class="scene-card" data-scene="relax">
+                        <div class="scene-icon">😌</div>
+                        <div class="scene-name">Relaxing</div>
+                        <div class="scene-desc">Soft blue tones</div>
+                    </div>
+                    <div class="scene-card" data-scene="reading">
+                        <div class="scene-icon">📖</div>
+                        <div class="scene-name">Reading</div>
+                        <div class="scene-desc">Bright white light</div>
+                    </div>
+                    <div class="scene-card" data-scene="sunrise">
+                        <div class="scene-icon">🌅</div>
+                        <div class="scene-name">Sunrise</div>
+                        <div class="scene-desc">Warm morning light</div>
+                    </div>
+                    <div class="scene-card" data-scene="romantic">
+                        <div class="scene-icon">💖</div>
+                        <div class="scene-name">Romantic</div>
+                        <div class="scene-desc">Soft pink lighting</div>
+                    </div>
+                    <div class="scene-card" data-scene="energize">
+                        <div class="scene-icon">⚡</div>
+                        <div class="scene-name">Energize</div>
+                        <div class="scene-desc">Bright cool white</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Scenes System -->
+    <div class="scenes-system" id="scenesSystem" style="display: none;">
+        <div class="scenes-header">
+            <h3>🎭 Smart Scenes</h3>
+            <button class="close-scenes" id="closeScenesBtn">×</button>
+        </div>
+        <div class="scenes-content">
+            <div class="room-selection">
+                <h4>Select Room</h4>
+                <div class="room-tabs" id="sceneRooms">
+                    <!-- Room tabs will be dynamically added here -->
+                </div>
+            </div>
+
+            <div class="scenes-categories">
+                <div class="category-section">
+                    <h4>🎬 Entertainment</h4>
+                    <div class="scenes-grid">
+                        <div class="scene-card" data-scene="movie">
+                            <div class="scene-icon">🎥</div>
+                            <div class="scene-name">Movie Night</div>
+                            <div class="scene-desc">Dim lights, cool temp</div>
+                        </div>
+                        <div class="scene-card" data-scene="party">
+                            <div class="scene-icon">🎉</div>
+                            <div class="scene-name">Party Mode</div>
+                            <div class="scene-desc">Colorful & energetic</div>
+                        </div>
+                        <div class="scene-card" data-scene="gaming">
+                            <div class="scene-icon">🎮</div>
+                            <div class="scene-name">Gaming</div>
+                            <div class="scene-desc">Dynamic RGB lighting</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h4>🕯️ Relaxation</h4>
+                    <div class="scenes-grid">
+                        <div class="scene-card" data-scene="candle">
+                            <div class="scene-icon">🕯️</div>
+                            <div class="scene-name">Candle Light</div>
+                            <div class="scene-desc">Soft warm glow</div>
+                        </div>
+                        <div class="scene-card" data-scene="chill">
+                            <div class="scene-icon">😌</div>
+                            <div class="scene-name">Chill Mode</div>
+                            <div class="scene-desc">Calm blue tones</div>
+                        </div>
+                        <div class="scene-card" data-scene="warm">
+                            <div class="scene-icon">🔥</div>
+                            <div class="scene-name">Warm Comfort</div>
+                            <div class="scene-desc">Cozy orange lighting</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="category-section">
+                    <h4>🌅 Daily Life</h4>
+                    <div class="scenes-grid">
+                        <div class="scene-card" data-scene="reading">
+                            <div class="scene-icon">📖</div>
+                            <div class="scene-name">Reading</div>
+                            <div class="scene-desc">Bright white light</div>
+                        </div>
+                        <div class="scene-card" data-scene="sunrise">
+                            <div class="scene-icon">🌅</div>
+                            <div class="scene-name">Sunrise</div>
+                            <div class="scene-desc">Gentle morning light</div>
+                        </div>
+                        <div class="scene-card" data-scene="romantic">
+                            <div class="scene-icon">💖</div>
+                            <div class="scene-name">Romantic</div>
+                            <div class="scene-desc">Soft pink ambiance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quick-scenes">
+                <h4>⚡ Quick Apply</h4>
+                <div class="quick-scene-buttons">
+                    <button class="quick-scene-btn" data-scene="all-off">
+                        <i class="fas fa-power-off"></i>
+                        <span>All Off</span>
+                    </button>
+                    <button class="quick-scene-btn" data-scene="all-on">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>All On</span>
+                    </button>
+                    <button class="quick-scene-btn" data-scene="goodnight">
+                        <i class="fas fa-moon"></i>
+                        <span>Good Night</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions System -->
+    <div class="quick-actions-system" id="quickActionsSystem" style="display: none;">
+        <div class="quick-actions-header">
+            <h3>⚡ Quick Actions</h3>
+            <button class="close-quick-actions" id="closeQuickActionsBtn">×</button>
+        </div>
+        <div class="quick-actions-content">
+            <div class="actions-categories">
+                <!-- Lighting Actions -->
+                <div class="category-section">
+                    <h4>💡 Lighting</h4>
+                    <div class="actions-grid">
+                        <button class="action-btn" data-action="all-lights-on">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>All Lights On</span>
+                        </button>
+                        <button class="action-btn" data-action="all-lights-off">
+                            <i class="fas fa-lightbulb"></i>
+                            <span>All Lights Off</span>
+                        </button>
+                        <button class="action-btn" data-action="dim-lights">
+                            <i class="fas fa-adjust"></i>
+                            <span>Dim All Lights</span>
+                        </button>
+                        <button class="action-btn" data-action="bright-lights">
+                            <i class="fas fa-sun"></i>
+                            <span>Bright All Lights</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Climate Actions -->
+                <div class="category-section">
+                    <h4>❄️ Climate</h4>
+                    <div class="actions-grid">
+                        <button class="action-btn" data-action="all-ac-on">
+                            <i class="fas fa-snowflake"></i>
+                            <span>All AC On</span>
+                        </button>
+                        <button class="action-btn" data-action="all-ac-off">
+                            <i class="fas fa-snowflake"></i>
+                            <span>All AC Off</span>
+                        </button>
+                        <button class="action-btn" data-action="ceiling-fans-off">
+                            <i class="fas fa-fan"></i>
+                            <span>All Fans Off</span>
+                        </button>
+                        <button class="action-btn" data-action="set-comfort-temp">
+                            <i class="fas fa-thermometer-half"></i>
+                            <span>Comfort Temp</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Security Actions -->
+                <div class="category-section">
+                    <h4>🔒 Security</h4>
+                    <div class="actions-grid">
+                        <button class="action-btn" data-action="close-all-curtains">
+                            <i class="fas fa-blinds"></i>
+                            <span>Close All Curtains</span>
+                        </button>
+                        <button class="action-btn" data-action="open-all-curtains">
+                            <i class="fas fa-blinds-open"></i>
+                            <span>Open All Curtains</span>
+                        </button>
+                        <button class="action-btn" data-action="arm-security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Arm Security</span>
+                        </button>
+                        <button class="action-btn" data-action="disarm-security">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Disarm Security</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Room-Specific Actions -->
+                <div class="category-section">
+                    <h4>🚪 Room Specific</h4>
+                    <div class="room-actions">
+                        <div class="room-action-group">
+                            <h5>Living Room</h5>
+                            <div class="actions-grid">
+                                <button class="action-btn" data-action="living-room-off">
+                                    <i class="fas fa-power-off"></i>
+                                    <span>Turn Off All</span>
+                                </button>
+                                <button class="action-btn" data-action="living-room-entertainment">
+                                    <i class="fas fa-tv"></i>
+                                    <span>Entertainment Mode</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="room-action-group">
+                            <h5>Bedroom</h5>
+                            <div class="actions-grid">
+                                <button class="action-btn" data-action="bedroom-sleep">
+                                    <i class="fas fa-bed"></i>
+                                    <span>Sleep Mode</span>
+                                </button>
+                                <button class="action-btn" data-action="bedroom-wakeup">
+                                    <i class="fas fa-sun"></i>
+                                    <span>Wake Up Mode</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lock System -->
+    <div class="lock-system" id="lockSystem" style="display: none;">
+        <div class="lock-header">
+            <h3>🔒 Door Locks</h3>
+            <button class="close-lock" id="closeLockBtn">×</button>
+        </div>
+        <div class="lock-content">
+            <div class="lock-status-overview">
+                <div class="overview-card">
+                    <div class="overview-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="overview-info">
+                        <div class="overview-title">House Status</div>
+                        <div class="overview-status locked">
+                            <i class="fas fa-lock"></i>
+                            <span>All Doors Locked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="locks-list">
+                <div class="lock-item">
+                    <div class="lock-info">
+                        <div class="lock-icon">
+                            <i class="fas fa-door-closed"></i>
+                        </div>
+                        <div class="lock-details">
+                            <div class="lock-name">Main Entrance</div>
+                            <div class="lock-location">Front Door</div>
+                        </div>
+                    </div>
+                    <div class="lock-status">
+                        <div class="status-indicator locked">
+                            <i class="fas fa-lock"></i>
+                            <span>Locked</span>
+                        </div>
+                        <button class="lock-toggle-btn" data-lock="main-entrance">
+                            Unlock
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lock-item">
+                    <div class="lock-info">
+                        <div class="lock-icon">
+                            <i class="fas fa-door-closed"></i>
+                        </div>
+                        <div class="lock-details">
+                            <div class="lock-name">Back Door</div>
+                            <div class="lock-location">Garden Entrance</div>
+                        </div>
+                    </div>
+                    <div class="lock-status">
+                        <div class="status-indicator unlocked">
+                            <i class="fas fa-unlock"></i>
+                            <span>Unlocked</span>
+                        </div>
+                        <button class="lock-toggle-btn" data-lock="back-door">
+                            Lock
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lock-item">
+                    <div class="lock-info">
+                        <div class="lock-icon">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <div class="lock-details">
+                            <div class="lock-name">Garage Door</div>
+                            <div class="lock-location">Garage Entrance</div>
+                        </div>
+                    </div>
+                    <div class="lock-status">
+                        <div class="status-indicator locked">
+                            <i class="fas fa-lock"></i>
+                            <span>Locked</span>
+                        </div>
+                        <button class="lock-toggle-btn" data-lock="garage-door">
+                            Unlock
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lock-item">
+                    <div class="lock-info">
+                        <div class="lock-icon">
+                            <i class="fas fa-door-closed"></i>
+                        </div>
+                        <div class="lock-details">
+                            <div class="lock-name">Side Gate</div>
+                            <div class="lock-location">Side Entrance</div>
+                        </div>
+                    </div>
+                    <div class="lock-status">
+                        <div class="status-indicator locked">
+                            <i class="fas fa-lock"></i>
+                            <span>Locked</span>
+                        </div>
+                        <button class="lock-toggle-btn" data-lock="side-gate">
+                            Unlock
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lock-history">
+                <h4>Recent Activity</h4>
+                <div class="history-list" id="lockHistory">
+                    <div class="history-item">
+                        <div class="history-time">2 min ago</div>
+                        <div class="history-message">Main Entrance locked automatically</div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-time">15 min ago</div>
+                        <div class="history-message">Back Door unlocked manually</div>
+                    </div>
+                    <div class="history-item">
+                        <div class="history-time">1 hour ago</div>
+                        <div class="history-message">All doors locked for night</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Curtain System -->
+    <div class="curtain-system" id="curtainSystem" style="display: none;">
+        <div class="curtain-header">
+            <h3><i class="fas fa-window-maximize"></i> Smart Curtains</h3>
+            <button class="close-curtain" id="closeCurtainBtn">×</button>
+        </div>
+        <div class="curtain-content">
+            <!-- Living Room Curtain -->
+            <div class="curtain-card" data-room="living-room">
+                <div class="curtain-card-header">
+                    <i class="fas fa-window-maximize"></i>
+                    <div class="curtain-name">Living Room Curtain</div>
+                </div>
+                <div class="curtain-status" id="living-room-curtain-status">Closed</div>
+                <div class="curtain-slider-box">
+                    <input type="range" class="curtain-slider" id="living-room-curtain-slider" min="0" max="100"
+                        value="0" data-room="living-room" />
+                </div>
+                <div class="curtain-percentage" id="living-room-curtain-percentage">0%</div>
+            </div>
+
+            <!-- Bedroom Curtain -->
+            <div class="curtain-card" data-room="master-bedroom">
+                <div class="curtain-card-header">
+                    <i class="fas fa-window-maximize"></i>
+                    <div class="curtain-name">Bedroom Curtain</div>
+                </div>
+                <div class="curtain-status" id="master-bedroom-curtain-status">Closed</div>
+                <div class="curtain-slider-box">
+                    <input type="range" class="curtain-slider" id="master-bedroom-curtain-slider" min="0" max="100"
+                        value="0" data-room="master-bedroom" />
+                </div>
+                <div class="curtain-percentage" id="master-bedroom-curtain-percentage">0%</div>
+            </div>
+
+            <!-- Study Room Curtain -->
+            <div class="curtain-card" data-room="study">
+                <div class="curtain-card-header">
+                    <i class="fas fa-window-maximize"></i>
+                    <div class="curtain-name">Study Room Curtain</div>
+                </div>
+                <div class="curtain-status" id="study-curtain-status">Closed</div>
+                <div class="curtain-slider-box">
+                    <input type="range" class="curtain-slider" id="study-curtain-slider" min="0" max="100" value="0"
+                        data-room="study" />
+                </div>
+                <div class="curtain-percentage" id="study-curtain-percentage">0%</div>
+            </div>
+
+            <!-- Dining Room Curtain -->
+            <div class="curtain-card" data-room="dining">
+                <div class="curtain-card-header">
+                    <i class="fas fa-window-maximize"></i>
+                    <div class="curtain-name">Dining Room Curtain</div>
+                </div>
+                <div class="curtain-status" id="dining-curtain-status">Closed</div>
+                <div class="curtain-slider-box">
+                    <input type="range" class="curtain-slider" id="dining-curtain-slider" min="0" max="100" value="0"
+                        data-room="dining" />
+                </div>
+                <div class="curtain-percentage" id="dining-curtain-percentage">0%</div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="curtain-quick-actions">
+                <button class="curtain-quick-btn" onclick="dashboard.curtainQuickAction('openAll')">
+                    <i class="fas fa-expand"></i> Open All
+                </button>
+                <button class="curtain-quick-btn" onclick="dashboard.curtainQuickAction('closeAll')">
+                    <i class="fas fa-compress"></i> Close All
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <script src="./Dashboard 4/script.js"></script>
+
 </body>
+
 
 </html>
